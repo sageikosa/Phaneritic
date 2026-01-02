@@ -7,7 +7,7 @@ $DeployUser = $DeployUser ? $DeployUser : "Phaneritic"
 $DeployPassword = $DeployPassword ? $DeployPassword : "Phaneritic"
 $ConnStr = "Server=$DeployInstance;Database=$DeployDB;User ID=$DeployUser;Password=$DeployPassword;TrustServerCertificate=true;"
 
-$proj = "GyroLedger.Kernel"
+$proj = "Phaneritic.Implementations"
 $proj
 dotnet ef migrations remove -p $proj --context TableFreshnessContext -- krnl $ConnStr
 

@@ -1,5 +1,5 @@
 /* Use SqlCmd mode in SSMS */
-:setvar dbName "GyroLedger"
+:setvar dbName "Phaneritic"
 
 USE [master]
 GO
@@ -134,9 +134,9 @@ GO
 
 USE [$(dbName)]
 GO
-CREATE USER GyroLedger FOR LOGIN GyroLedger
+CREATE USER Phaneritic FOR LOGIN Phaneritic
 GO
 USE [$(dbName)]
 GO
-ALTER ROLE [db_owner] ADD MEMBER GyroLedger
+ALTER ROLE [db_owner] ADD MEMBER Phaneritic
 GO
