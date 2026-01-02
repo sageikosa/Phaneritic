@@ -4,7 +4,7 @@ using Phaneritic.Interfaces.Database;
 namespace Phaneritic.Implementations.Database;
 
 public class DbScopedConnection(
-    IOptionsSnapshot<GyroDatabaseOptions> options
+    IOptionsSnapshot<DatabaseOptions> options
     ) : BaseDbConnection(options.Value.StandardConnectString), IDbScopedConnection, IDisposable
 {
 }

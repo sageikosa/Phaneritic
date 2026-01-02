@@ -9,7 +9,7 @@ using System.Transactions;
 namespace Phaneritic.Implementations.CommitWork;
 
 public class WorkCommitter(
-    IOptionsSnapshot<GyroDatabaseOptions> options,
+    IOptionsSnapshot<DatabaseOptions> options,
     IEnumerable<IDbErrorWrap> wrappers,
     ILogger<IWorkCommitter> logger
         ) : IWorkCommitter

@@ -10,7 +10,7 @@ namespace Phaneritic.Implementations.Database;
 /// Handles errors with delays Performs the delay.
 /// </summary>
 public class SqlErrorRetry(
-    IOptionsSnapshot<GyroDatabaseOptions> options,
+    IOptionsSnapshot<DatabaseOptions> options,
     ILogger<SqlErrorRetry> logger
         ) : IDbErrorWrap
 {

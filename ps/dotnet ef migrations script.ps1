@@ -1,10 +1,10 @@
 # Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
 # &"ps\dotnet ef migrations script.ps1"
 
-$DeployInstance = $DeployInstance ? $DeployInstance : "xpstower,55187"
-$DeployDB = $DeployDB ? $DeployDB : "GyroLedger"
-$DeployUser = $DeployUser ? $DeployUser : "GyroLedger"
-$DeployPassword = $DeployPassword ? $DeployPassword : "GyroLedger3360"
+$DeployInstance = $DeployInstance ? $DeployInstance : "Phaneritic,55187"
+$DeployDB = $DeployDB ? $DeployDB : "Phaneritic"
+$DeployUser = $DeployUser ? $DeployUser : "Phaneritic"
+$DeployPassword = $DeployPassword ? $DeployPassword : "Phaneritic"
 $ConnStr = "Server=$DeployInstance;Database=$DeployDB;User ID=$DeployUser;Password=$DeployPassword;TrustServerCertificate=true;"
 
 $proj = "GyroLedger.Kernel"

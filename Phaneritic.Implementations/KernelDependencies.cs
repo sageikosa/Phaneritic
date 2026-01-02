@@ -19,7 +19,7 @@ public static class KernelDependencies
     // TODO: configure options...
     public static IServiceCollection ConfigureKernel(this IServiceCollection services, IConfiguration configuration)
     {
-        services.Configure<GyroDatabaseOptions>(_o => configuration.GetSection(@"kernelDbOptions").Bind(_o));
+        services.Configure<DatabaseOptions>(_o => configuration.GetSection(@"kernelDbOptions").Bind(_o));
         return services;
     }
 

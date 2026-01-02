@@ -3,7 +3,7 @@ using Phaneritic.Interfaces.Database;
 
 namespace Phaneritic.Implementations.Database;
 public class DbLoggingConnection(
-    IOptionsSnapshot<GyroDatabaseOptions> options
+    IOptionsSnapshot<DatabaseOptions> options
     ) : BaseDbConnection(options.Value.LoggingConnectString), IDbLoggingConnection
 {
 }

@@ -1,7 +1,7 @@
-$DeployInstance = $DeployInstance ? $DeployInstance : "xpstower,55187"
-$DeployDB = $DeployDB ? $DeployDB : "GyroLedger"
-$DeployUser = $DeployUser ? $DeployUser : "GyroLedger"
-$DeployPassword = $DeployPassword ? $DeployPassword : "GyroLedger3360"
+$DeployInstance = $DeployInstance ? $DeployInstance : "Phaneritic,55187"
+$DeployDB = $DeployDB ? $DeployDB : "Phaneritic"
+$DeployUser = $DeployUser ? $DeployUser : "Phaneritic"
+$DeployPassword = $DeployPassword ? $DeployPassword : "Phaneritic"
 $DeploySeed = $DeploySeed ? $DeploySeed : ""
 # NOTE set $DeploySeed = "custom\" before running to use custom seeddata
 
