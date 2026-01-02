@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36511.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GyroLedger.Kernel", "GyroLedger.Kernel.csproj", "{2487CF39-F7ED-430D-9EC5-6E53E2186BA1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phaneritic.Implementations", "Phaneritic.Implementations.csproj", "{2487CF39-F7ED-430D-9EC5-6E53E2186BA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GyroLedger.CodeInterface", "..\GyroLedger.CodeInterface\GyroLedger.CodeInterface.csproj", "{C4C86884-3AC0-4D77-9916-E9F6D3AF00E7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phaneritic.Interfaces", "..\Phaneritic.Interfaces\Phaneritic.Interfaces.csproj", "{C4C86884-3AC0-4D77-9916-E9F6D3AF00E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GyroLedger.Generators", "..\GyroLedger.Generators\GyroLedger.Generators.csproj", "{77DE9B34-EE37-431B-ACEE-46D7345B2CDA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phaneritic.Generators", "..\Phaneritic.Generators\Phaneritic.Generators.csproj", "{77DE9B34-EE37-431B-ACEE-46D7345B2CDA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GyroLedger.Generators.Attributes", "..\GyroLedger.Generators.Attributes\GyroLedger.Generators.Attributes.csproj", "{EE231415-83BA-4B61-8FC1-4D567A2B1263}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phaneritic.Generators.Attributes", "..\Phaneritic.Generators.Attributes\Phaneritic.Generators.Attributes.csproj", "{EE231415-83BA-4B61-8FC1-4D567A2B1263}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
