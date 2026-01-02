@@ -1,6 +1,6 @@
 ﻿using System.Transactions;
 
-namespace GyroLedger.CodeInterface.Database;
+namespace Phaneritic.Interfaces.Database;
 public class GyroDatabaseOptions
 {
     public string StandardConnectString { get; set; } = @"Server=.;Database=GLWALK;User ID=GLWALK;Password=GLWALK;TrustServerCertificate=true;";

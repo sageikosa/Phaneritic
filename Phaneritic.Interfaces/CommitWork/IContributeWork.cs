@@ -1,4 +1,4 @@
-﻿namespace GyroLedger.CodeInterface.CommitWork;
+﻿namespace Phaneritic.Interfaces.CommitWork;
 
 public interface IContributeWork
 {

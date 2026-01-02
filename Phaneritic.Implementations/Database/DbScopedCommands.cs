@@ -1,7 +1,7 @@
-﻿using GyroLedger.CodeInterface.Database;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
+using Phaneritic.Interfaces.Database;
 
-namespace GyroLedger.Kernel.Database;
+namespace Phaneritic.Implementations.Database;
 
 public class DbScopedCommands(
     IDbScopedConnection connection,

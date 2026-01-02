@@ -1,4 +1,4 @@
-﻿namespace GyroLedger.Kernel.Sempahores;
+﻿namespace Phaneritic.Implementations.Sempahores;
 
 /// <summary>
 /// Semaphore barrier for shared resource access with timeout and cancellation.

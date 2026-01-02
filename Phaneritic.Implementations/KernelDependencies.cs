@@ -1,18 +1,18 @@
-﻿using GyroLedger.CodeInterface;
-using GyroLedger.CodeInterface.CommitWork;
-using GyroLedger.CodeInterface.Database;
-using GyroLedger.CodeInterface.LudCache;
-using GyroLedger.Kernel.CommitWork;
-using GyroLedger.Kernel.Database;
-using GyroLedger.Kernel.EF.TableCache;
-using GyroLedger.Kernel.LudCache;
-using GyroLedger.Kernel.Sempahores;
-using GyroLedger.Kernel.Startup;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Phaneritic.Implementations.CommitWork;
+using Phaneritic.Implementations.Database;
+using Phaneritic.Implementations.EF.TableCache;
+using Phaneritic.Implementations.LudCache;
+using Phaneritic.Implementations.Sempahores;
+using Phaneritic.Implementations.Startup;
+using Phaneritic.Interfaces;
+using Phaneritic.Interfaces.CommitWork;
+using Phaneritic.Interfaces.Database;
+using Phaneritic.Interfaces.LudCache;
 
-namespace GyroLedger.Kernel;
+namespace Phaneritic.Implementations;
 
 public static class KernelDependencies
 {
@@ -24,7 +24,7 @@ public static class KernelDependencies
     }
 
     /// <summary>register core DI services</summary>
-    public static IServiceCollection AddGyroKernel(this IServiceCollection services)
+    public static IServiceCollection AddPhaneriticKernel(this IServiceCollection services)
     {
         services.TryAddScoped<IWorkCommitter, WorkCommitter>();
 

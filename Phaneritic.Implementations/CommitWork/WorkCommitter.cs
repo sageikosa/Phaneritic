@@ -1,12 +1,12 @@
-﻿using GyroLedger.CodeInterface.CommitWork;
-using GyroLedger.CodeInterface.Database;
-using GyroLedger.Kernel.Database;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Phaneritic.Implementations.Database;
+using Phaneritic.Interfaces.CommitWork;
+using Phaneritic.Interfaces.Database;
 using System.Diagnostics;
 using System.Transactions;
 
-namespace GyroLedger.Kernel.CommitWork;
+namespace Phaneritic.Implementations.CommitWork;
 
 public class WorkCommitter(
     IOptionsSnapshot<GyroDatabaseOptions> options,

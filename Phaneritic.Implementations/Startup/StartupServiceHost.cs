@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace GyroLedger.Kernel.Startup;
+namespace Phaneritic.Implementations.Startup;
 
 public static class StartupServiceHost
 {

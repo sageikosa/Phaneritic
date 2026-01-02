@@ -1,4 +1,4 @@
-﻿namespace GyroLedger.Generators;
+﻿namespace Phaneritic.Generators;
 public readonly record struct StrongIDsToGenerate
 {
     public readonly string NameSpace;

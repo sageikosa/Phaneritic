@@ -1,4 +1,4 @@
-﻿namespace GyroLedger.Kernel.Sempahores;
+﻿namespace Phaneritic.Implementations.Sempahores;
 
 /// <summary>
 /// Task friendly barrier, capable of being disposed, and thus pretty good in ASP.NET DI Scopes

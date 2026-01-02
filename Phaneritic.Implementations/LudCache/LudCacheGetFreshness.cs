@@ -1,6 +1,6 @@
-﻿using GyroLedger.CodeInterface.LudCache;
+﻿using Phaneritic.Interfaces.LudCache;
 
-namespace GyroLedger.Kernel.LudCache;
+namespace Phaneritic.Implementations.LudCache;
 
 public class LudCacheGetFreshness<TRefresh>(
     IEnumerable<ILudCacheRefresher> allRefreshers,

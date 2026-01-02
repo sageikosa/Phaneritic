@@ -1,7 +1,4 @@
-﻿using GyroLedger.CodeInterface.CommitWork;
-using System.Data.Common;
-
-namespace GyroLedger.CodeInterface.Database;
+﻿namespace Phaneritic.Interfaces.Database;
 public interface IDbLoggingCommands : IBaseDbCommands
 {
 }

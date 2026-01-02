@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace GyroLedger.Kernel.EF;
+namespace Phaneritic.Implementations.EF;
 
 public class NoLoggerFactory 
     : ILoggerFactory

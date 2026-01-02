@@ -1,4 +1,4 @@
-﻿namespace GyroLedger.CodeInterface.LudCache;
+﻿namespace Phaneritic.Interfaces.LudCache;
 
 public record FreshnessStatus
 {

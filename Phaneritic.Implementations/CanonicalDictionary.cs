@@ -1,7 +1,7 @@
-﻿using GyroLedger.CodeInterface;
+﻿using Phaneritic.Interfaces;
 using System.Collections.Concurrent;
 
-namespace GyroLedger.Kernel;
+namespace Phaneritic.Implementations;
 
 public class CanonicalDictionary<TKey, TValue>
     : ICanonicalDictionary<TKey, TValue>

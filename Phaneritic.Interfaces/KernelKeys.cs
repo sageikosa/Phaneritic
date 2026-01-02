@@ -1,6 +1,6 @@
-﻿using GyroLedger.Generators.Attributes;
+﻿using Phaneritic.Generators.Attributes;
 
-namespace GyroLedger.CodeInterface;
+namespace Phaneritic.Interfaces;
 
 // NOTE: defined here as partial to make renaming easier in Visual Studio
 

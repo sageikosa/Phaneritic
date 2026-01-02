@@ -1,10 +1,10 @@
-﻿using GyroLedger.CodeInterface;
-using GyroLedger.CodeInterface.CommitWork;
-using GyroLedger.CodeInterface.LudCache;
-using GyroLedger.Kernel.EF.TableCache;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
+using Phaneritic.Implementations.EF.TableCache;
+using Phaneritic.Interfaces;
+using Phaneritic.Interfaces.CommitWork;
+using Phaneritic.Interfaces.LudCache;
 
-namespace GyroLedger.Kernel.LudCache;
+namespace Phaneritic.Implementations.LudCache;
 
 public class LudCacheRefreshAll(
     IEnumerable<ILudCacheRefresher> refreshers,

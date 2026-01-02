@@ -1,10 +1,10 @@
-﻿using GyroLedger.CodeInterface.Database;
-using Microsoft.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Phaneritic.Interfaces.Database;
 using System.Diagnostics;
 
-namespace GyroLedger.Kernel.Database;
+namespace Phaneritic.Implementations.Database;
 
 /// <summary>
 /// Handles errors with delays Performs the delay.

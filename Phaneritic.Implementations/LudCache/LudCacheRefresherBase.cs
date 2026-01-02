@@ -1,7 +1,7 @@
-﻿using GyroLedger.CodeInterface;
-using GyroLedger.CodeInterface.LudCache;
+﻿using Phaneritic.Interfaces;
+using Phaneritic.Interfaces.LudCache;
 
-namespace GyroLedger.Kernel.LudCache;
+namespace Phaneritic.Implementations.LudCache;
 public abstract class LudCacheRefresherBase<TKey, TLud, TModel>(
     IPackRecord<TModel, TLud> packer,
     ILudDictionary<TKey, TLud> dtoDictionary

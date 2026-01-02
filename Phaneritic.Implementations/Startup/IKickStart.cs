@@ -1,4 +1,4 @@
-﻿namespace GyroLedger.Kernel.Startup;
+﻿namespace Phaneritic.Implementations.Startup;
 
 public interface IKickStart
 {

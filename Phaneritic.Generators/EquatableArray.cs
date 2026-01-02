@@ -7,11 +7,10 @@
 //  - original license statement restricted in scope to just this file, as it is the only one used from its source repository
 //  - Slight changes to namespace and code-style
 
-using System;
 using System.Collections;
 
 //namespace NetEscapades.EnumGenerators;
-namespace GyroLedger.Generators;
+namespace Phaneritic.Generators;
 
 /// <summary>
 /// An immutable, equatable array. This is equivalent to <see cref="Array"/> but with value equality support.

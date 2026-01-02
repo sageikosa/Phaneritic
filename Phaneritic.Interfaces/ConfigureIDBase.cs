@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.Linq.Expressions;
 
-namespace GyroLedger.CodeInterface;
+namespace Phaneritic.Interfaces;
 
 public abstract class ConfigureIDBase<TStrong, TValue>(
     Expression<Func<TStrong, TValue>> convertToProviderExpression,

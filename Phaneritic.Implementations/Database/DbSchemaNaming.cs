@@ -1,6 +1,6 @@
-﻿using GyroLedger.CodeInterface.Database;
+﻿using Phaneritic.Interfaces.Database;
 
-namespace GyroLedger.Kernel.Database;
+namespace Phaneritic.Implementations.Database;
 
 public static class DbSchemaNaming
 {

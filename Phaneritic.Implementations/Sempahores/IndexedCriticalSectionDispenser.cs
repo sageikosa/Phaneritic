@@ -1,6 +1,6 @@
 ﻿using System.Collections.Concurrent;
 
-namespace GyroLedger.Kernel.Sempahores;
+namespace Phaneritic.Implementations.Sempahores;
 
 public sealed class IndexedCriticalSectionDispenser<TKey, TBarrier>
     : IIndexedCriticalSectionDispenser<TKey, TBarrier>

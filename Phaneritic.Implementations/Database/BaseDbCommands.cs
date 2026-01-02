@@ -1,11 +1,11 @@
-﻿using GyroLedger.CodeInterface.CommitWork;
-using GyroLedger.CodeInterface.Database;
-using Microsoft.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
+using Phaneritic.Interfaces.CommitWork;
+using Phaneritic.Interfaces.Database;
 using System.Data.Common;
 using System.Diagnostics;
 
-namespace GyroLedger.Kernel.Database;
+namespace Phaneritic.Implementations.Database;
 
 public abstract class BaseDbCommands(
     IBaseDbConnection connection,

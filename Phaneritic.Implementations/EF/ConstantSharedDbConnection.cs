@@ -1,7 +1,7 @@
-﻿using GyroLedger.CodeInterface.Database;
-using Microsoft.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
+using Phaneritic.Interfaces.Database;
 
-namespace GyroLedger.Kernel.EF;
+namespace Phaneritic.Implementations.EF;
 
 public class ConstantSharedDbConnection(string connection) 
     : IBaseDbConnection, IDbScopedConnection, IDbLoggingConnection

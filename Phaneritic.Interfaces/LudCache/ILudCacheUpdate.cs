@@ -1,6 +1,6 @@
-﻿using GyroLedger.CodeInterface.CommitWork;
+﻿using Phaneritic.Interfaces.CommitWork;
 
-namespace GyroLedger.CodeInterface.LudCache;
+namespace Phaneritic.Interfaces.LudCache;
 
 public interface ILudCacheUpdate<TRefresh> 
     : IContributeWork

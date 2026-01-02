@@ -1,7 +1,7 @@
-﻿using GyroLedger.CodeInterface.LudCache;
-using GyroLedger.Kernel.Startup;
+﻿using Phaneritic.Implementations.Startup;
+using Phaneritic.Interfaces.LudCache;
 
-namespace GyroLedger.Kernel.LudCache;
+namespace Phaneritic.Implementations.LudCache;
 
 public class LudCacheKickStart(
     ILudCacheRefreshAll refreshAll

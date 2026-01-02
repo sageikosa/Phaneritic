@@ -1,7 +1,7 @@
-﻿using GyroLedger.CodeInterface;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Phaneritic.Interfaces;
 
-namespace GyroLedger.Kernel;
+namespace Phaneritic.Implementations;
 
 public class ScopeAction(
     IServiceProvider serviceProvider

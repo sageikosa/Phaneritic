@@ -1,7 +1,6 @@
-﻿using GyroLedger.CodeInterface;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 
-namespace GyroLedger.Kernel.Sempahores;
+namespace Phaneritic.Implementations.Sempahores;
 
 public sealed class IndexedCriticalSection<TKey, TBarrier> : IDisposable
     where TKey : struct, IEquatable<TKey>

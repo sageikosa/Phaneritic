@@ -1,11 +1,11 @@
-﻿using GyroLedger.Generators.Attributes;
-using Microsoft.CodeAnalysis;
+﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
+using Phaneritic.Generators.Attributes;
 using System.Collections.Immutable;
 using System.Text;
 
-namespace GyroLedger.Generators;
+namespace Phaneritic.Generators;
 
 [Generator]
 public class StrongKeyGenerator : IIncrementalGenerator
@@ -14,7 +14,7 @@ public class StrongKeyGenerator : IIncrementalGenerator
     {
         var _strongKeysToGenerate = context.SyntaxProvider
            .ForAttributeWithMetadataName(
-               @"GyroLedger.Generators.Attributes.StrongKeysAttribute",
+               @"Phaneritic.Generators.Attributes.StrongKeysAttribute",
                predicate: static (s, _) => true,
                transform: static (ctx, _) => GetClassSource(ctx.SemanticModel, ctx.TargetNode, ctx.Attributes))
             .Where(static m => m is not null);
@@ -178,7 +178,7 @@ public class StrongKeyGenerator : IIncrementalGenerator
     private static string GenerateCode(StrongKeysToGenerate strongKeys)
     {
         var sb = new StringBuilder();
-        sb.AppendLine(@"using GyroLedger.CodeInterface;");
+        sb.AppendLine(@"using Phaneritic.Interfaces;");
         sb.AppendLine(@"using Microsoft.Extensions.DependencyInjection;");
         sb.AppendLine(@"#nullable enable");
         sb.Append(@"namespace ");

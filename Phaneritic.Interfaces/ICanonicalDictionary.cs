@@ -1,4 +1,4 @@
-﻿namespace GyroLedger.CodeInterface;
+﻿namespace Phaneritic.Interfaces;
 
 public interface ICanonicalDictionary<TKey, TValue>
     where TKey: struct, IEquatable<TKey>

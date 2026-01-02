@@ -1,9 +1,9 @@
-﻿using GyroLedger.CodeInterface.LudCache;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Phaneritic.Interfaces.LudCache;
 
-namespace GyroLedger.Kernel.LudCache;
+namespace Phaneritic.Implementations.LudCache;
 
 public class LudCacheFreshnessPoller(
     IServiceProvider services,

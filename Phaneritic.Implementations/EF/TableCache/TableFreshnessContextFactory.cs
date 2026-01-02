@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Design;
-using GyroLedger.CodeInterface;
+using Phaneritic.Interfaces;
 
-namespace GyroLedger.Kernel.EF.TableCache;
+namespace Phaneritic.Implementations.EF.TableCache;
 
 public class TableFreshnessContextFactory 
     : IDesignTimeDbContextFactory<TableFreshnessContext>

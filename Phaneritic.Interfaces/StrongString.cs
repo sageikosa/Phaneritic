@@ -1,4 +1,4 @@
-﻿namespace GyroLedger.CodeInterface;
+﻿namespace Phaneritic.Interfaces;
 
 /// <summary>Strongly typed string based key source</summary>
 public readonly struct StrongString(string keyVal) : IEquatable<StrongString>

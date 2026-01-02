@@ -1,4 +1,4 @@
-﻿namespace GyroLedger.CodeInterface.Database;
+﻿namespace Phaneritic.Interfaces.Database;
 
 public interface IDbErrorWrap
 {

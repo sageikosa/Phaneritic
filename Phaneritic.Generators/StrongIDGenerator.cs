@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
 using System.Text;
 
-namespace GyroLedger.Generators;
+namespace Phaneritic.Generators;
 
 [Generator]
 public class StrongIDGenerator : IIncrementalGenerator
@@ -13,7 +13,7 @@ public class StrongIDGenerator : IIncrementalGenerator
     {
         var _strongIDsToGenerate = context.SyntaxProvider
            .ForAttributeWithMetadataName(
-               @"GyroLedger.Generators.Attributes.StrongIDsAttribute",
+               @"Phaneritic.Generators.Attributes.StrongIDsAttribute",
                predicate: static (s, _) => true,
                transform: static (ctx, _) => GetEnumSource(ctx.SemanticModel, ctx.TargetNode))
             .Where(static m => m is not null);
@@ -68,7 +68,7 @@ public class StrongIDGenerator : IIncrementalGenerator
     private static string GenerateCode(StrongIDsToGenerate strongIDs)
     {
         var sb = new StringBuilder();
-        sb.AppendLine(@"using GyroLedger.CodeInterface;");
+        sb.AppendLine(@"using Phaneritic.Interfaces;");
         sb.AppendLine(@"using Microsoft.Extensions.DependencyInjection;");
         sb.Append(@"namespace ");
         sb.AppendLine(strongIDs.NameSpace);

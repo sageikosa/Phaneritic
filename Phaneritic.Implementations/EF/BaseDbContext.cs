@@ -1,11 +1,11 @@
-﻿using GyroLedger.CodeInterface;
-using GyroLedger.CodeInterface.CommitWork;
-using GyroLedger.CodeInterface.Database;
-using GyroLedger.Kernel.Database;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Phaneritic.Implementations.Database;
+using Phaneritic.Interfaces;
+using Phaneritic.Interfaces.CommitWork;
+using Phaneritic.Interfaces.Database;
 
-namespace GyroLedger.Kernel.EF;
+namespace Phaneritic.Implementations.EF;
 public abstract class BaseDbContext(
     ILoggerFactory loggerFactory,
     IEnumerable<IPropertyConfigurator> configurators,

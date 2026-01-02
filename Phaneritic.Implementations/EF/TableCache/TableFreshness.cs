@@ -1,5 +1,5 @@
-﻿using GyroLedger.CodeInterface;
-namespace GyroLedger.Kernel.EF.TableCache;
+﻿using Phaneritic.Interfaces;
+namespace Phaneritic.Implementations.EF.TableCache;
 
 public class TableFreshness
 {

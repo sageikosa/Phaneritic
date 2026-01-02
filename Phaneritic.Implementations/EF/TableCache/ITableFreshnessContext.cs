@@ -1,7 +1,7 @@
-﻿using GyroLedger.CodeInterface.CommitWork;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Phaneritic.Interfaces.CommitWork;
 
-namespace GyroLedger.Kernel.EF.TableCache;
+namespace Phaneritic.Implementations.EF.TableCache;
 
 public interface ITableFreshnessContext 
     : IContributeWork

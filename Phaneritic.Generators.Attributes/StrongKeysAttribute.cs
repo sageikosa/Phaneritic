@@ -1,4 +1,4 @@
-﻿namespace GyroLedger.Generators.Attributes;
+﻿namespace Phaneritic.Generators.Attributes;
 
 /// <summary>
 /// Will read class values and generate strongly-typed keys with max length based on the values of the fields.

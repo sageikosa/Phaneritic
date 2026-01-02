@@ -1,8 +1,8 @@
-﻿using GyroLedger.CodeInterface;
-using Microsoft.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
+using Phaneritic.Interfaces;
 using System.Data;
 
-namespace GyroLedger.Kernel.EF;
+namespace Phaneritic.Implementations.EF;
 
 public static class StrongStringSqlParameters
 {

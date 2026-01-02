@@ -1,7 +1,7 @@
-﻿using GyroLedger.CodeInterface.LudCache;
+﻿using Phaneritic.Interfaces.LudCache;
 using System.Collections.Frozen;
 
-namespace GyroLedger.Kernel.LudCache;
+namespace Phaneritic.Implementations.LudCache;
 public class BaseLudDictionary<TKey, TLud>(
     ) : ILudDictionary<TKey, TLud>
     where TKey : struct, IEquatable<TKey>

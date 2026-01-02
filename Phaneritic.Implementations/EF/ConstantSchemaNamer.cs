@@ -1,6 +1,6 @@
-﻿using GyroLedger.CodeInterface.Database;
+﻿using Phaneritic.Interfaces.Database;
 
-namespace GyroLedger.Kernel.EF;
+namespace Phaneritic.Implementations.EF;
 
 public class ConstantSchemaNamer(string schema) : IDbSchemaProvider
 {

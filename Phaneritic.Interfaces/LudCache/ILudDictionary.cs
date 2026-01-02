@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace GyroLedger.CodeInterface.LudCache;
+﻿namespace Phaneritic.Interfaces.LudCache;
 public interface ILudDictionary<TKey, TLud>
     where TKey : struct, IEquatable<TKey>
     where TLud : class, IEquatable<TLud>, ILudCacheable<TKey>

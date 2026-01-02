@@ -1,4 +1,4 @@
-﻿namespace GyroLedger.Kernel.Sempahores;
+﻿namespace Phaneritic.Implementations.Sempahores;
 
 /// <summary>
 /// Defines a thread-safe collection that maps keys to semaphore barriers, providing methods to add, retrieve, update,

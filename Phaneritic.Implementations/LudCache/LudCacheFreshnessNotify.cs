@@ -1,8 +1,8 @@
-﻿using GyroLedger.CodeInterface;
-using GyroLedger.CodeInterface.CommitWork;
-using GyroLedger.CodeInterface.LudCache;
+﻿using Phaneritic.Interfaces;
+using Phaneritic.Interfaces.CommitWork;
+using Phaneritic.Interfaces.LudCache;
 
-namespace GyroLedger.Kernel.LudCache;
+namespace Phaneritic.Implementations.LudCache;
 
 /// <summary>
 /// Provides a base class for cache freshness notification handlers that operate on a specific type of cache refresher.

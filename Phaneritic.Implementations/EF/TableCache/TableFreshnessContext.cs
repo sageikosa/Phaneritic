@@ -1,9 +1,9 @@
-﻿using GyroLedger.CodeInterface;
-using GyroLedger.CodeInterface.Database;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Phaneritic.Interfaces;
+using Phaneritic.Interfaces.Database;
 
-namespace GyroLedger.Kernel.EF.TableCache;
+namespace Phaneritic.Implementations.EF.TableCache;
 
 public class TableFreshnessContext(
     ILoggerFactory loggerFactory,

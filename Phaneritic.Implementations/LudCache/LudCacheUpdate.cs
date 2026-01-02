@@ -1,8 +1,8 @@
-﻿using GyroLedger.CodeInterface.CommitWork;
-using GyroLedger.CodeInterface.LudCache;
-using GyroLedger.Kernel.EF.TableCache;
+﻿using Phaneritic.Implementations.EF.TableCache;
+using Phaneritic.Interfaces.CommitWork;
+using Phaneritic.Interfaces.LudCache;
 
-namespace GyroLedger.Kernel.LudCache;
+namespace Phaneritic.Implementations.LudCache;
 
 public class LudCacheUpdate<TRefresh>(
     ITableFreshnessContextTransient context,

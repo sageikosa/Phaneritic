@@ -1,7 +1,7 @@
-﻿using GyroLedger.CodeInterface.Database;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
+using Phaneritic.Interfaces.Database;
 
-namespace GyroLedger.Kernel.Database;
+namespace Phaneritic.Implementations.Database;
 
 public class DbScopedConnection(
     IOptionsSnapshot<GyroDatabaseOptions> options

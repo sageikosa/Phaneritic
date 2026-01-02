@@ -1,7 +1,7 @@
 ﻿using System.Collections.Frozen;
 using System.Diagnostics.CodeAnalysis;
 
-namespace GyroLedger.CodeInterface;
+namespace Phaneritic.Interfaces;
 public interface IPackRecord<in TModel, TDto>
     where TDto: class, IEquatable<TDto>
 {

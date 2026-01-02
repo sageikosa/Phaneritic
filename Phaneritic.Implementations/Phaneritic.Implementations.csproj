@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GyroLedger.CodeInterface\GyroLedger.CodeInterface.csproj" />
+    <ProjectReference Include="..\Phaneritic.Interfaces\Phaneritic.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>

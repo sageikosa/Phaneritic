@@ -1,8 +1,8 @@
 ﻿using System.Data.Common;
-using GyroLedger.CodeInterface.Database;
 using Microsoft.Data.SqlClient;
+using Phaneritic.Interfaces.Database;
 
-namespace GyroLedger.Kernel.Database;
+namespace Phaneritic.Implementations.Database;
 
 public abstract class BaseDbConnection(
     string connectionString

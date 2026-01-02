@@ -1,6 +1,6 @@
 ﻿using System.Data.Common;
 
-namespace GyroLedger.CodeInterface.Database;
+namespace Phaneritic.Interfaces.Database;
 public interface IBaseDbConnection : IDisposable
 {
     DbConnection Connection { get; }

@@ -1,8 +1,8 @@
-﻿using GyroLedger.CodeInterface;
-using GyroLedger.CodeInterface.LudCache;
+﻿using Phaneritic.Interfaces;
+using Phaneritic.Interfaces.LudCache;
 using System.Collections.Concurrent;
 
-namespace GyroLedger.Kernel.LudCache;
+namespace Phaneritic.Implementations.LudCache;
 
 public class LudCacheFreshness 
     : ILudCacheFreshness

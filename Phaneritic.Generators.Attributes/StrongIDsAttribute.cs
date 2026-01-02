@@ -1,4 +1,4 @@
-﻿namespace GyroLedger.Generators.Attributes;
+﻿namespace Phaneritic.Generators.Attributes;
 
 /// <summary>
 /// When attached to an enum, will use the base numeric type of the enum to generate strongly typed IDs.

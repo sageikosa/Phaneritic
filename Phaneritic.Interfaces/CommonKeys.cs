@@ -1,6 +1,6 @@
-﻿using GyroLedger.Generators.Attributes;
+﻿using Phaneritic.Generators.Attributes;
 
-namespace GyroLedger.CodeInterface;
+namespace Phaneritic.Interfaces;
 
 public readonly partial struct NameString;
 public readonly partial struct DescriptionString;

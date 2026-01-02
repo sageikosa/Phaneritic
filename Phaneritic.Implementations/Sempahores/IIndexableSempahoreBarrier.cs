@@ -1,4 +1,4 @@
-﻿namespace GyroLedger.Kernel.Sempahores;
+﻿namespace Phaneritic.Implementations.Sempahores;
 
 /// <summary>
 /// Marker interface for SemaphoreBarriers to help ensure registered correctly.

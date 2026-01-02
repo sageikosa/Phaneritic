@@ -11,8 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GyroLedger.Generators\GyroLedger.Generators.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
-    <ProjectReference Include="..\GyroLedger.Generators.Attributes\GyroLedger.Generators.Attributes.csproj" ReferenceOutputAssembly="true" OutputItemType="Analyzer" />
+    <ProjectReference Include="..\Phaneritic.Generators\Phaneritic.Generators.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
+    <ProjectReference Include="..\Phaneritic.Generators.Attributes\Phaneritic.Generators.Attributes.csproj" ReferenceOutputAssembly="true" OutputItemType="Analyzer" />
   </ItemGroup>
 
 </Project>
