@@ -28,14 +28,14 @@ The first two I'd previously isolated and made some repositories to explain the 
 Let's assume for a moment that you are like me, and for reasons, you don't want one massive `DbContext` model to rule them all.  
 But, you still need to ensure that changes in two (or more) `DbContext`s get committed together.  
 ```mermaid
-graph TD;
+graph LR;
 Commit-->DbContext1
 Commit-->DbContext2
 ```
 
 Or more likely you may have two or more "higher-level" data-management classes that use the same `DbContext` to manipulate data, and you don't need to know about the databases per se.
 ```mermaid
-graph TD;
+graph LR;
 Commit-->BoxManager
 Commit-->CartManager
 BoxManager-->DbContext(DbContext Inventory)
@@ -44,7 +44,7 @@ CartManager-->DbContext
 
 Further, you may have a mix of EF updates and SQL SPROC calls that should _really_ commit or fail as a unit.
 ```mermaid
-graph TD;
+graph LR;
 Commit-->BoxManager
 Commit-->RateCounter
 BoxManager-->DbContext(DbContext Inventory)
@@ -53,7 +53,7 @@ RateCounter-->DbCommands(DbCommands)
 
 and so forth in increasingly complex connectivity and depth
 ```mermaid
-graph TD;
+graph LR;
 Commit-->BoxManager
 Commit-->CartManager
 Commit-->OrderManager
