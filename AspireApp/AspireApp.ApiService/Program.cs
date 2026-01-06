@@ -1,45 +1,39 @@
-var builder = WebApplication.CreateBuilder(args);
+using AspireApp.Web;
+using Microsoft.Extensions.Hosting;
+using Phaneritic.Implementations.Startup;
+
+var _builder = WebApplication.CreateBuilder(args);
 
 // Add service defaults & Aspire client integrations.
-builder.AddServiceDefaults();
+_builder.AddServiceDefaults();
+
+_builder.Configuration
+    .AddJsonFile($@"appsettings.{Environment.MachineName}.json", true, true)
+    .AddJsonFile($@"appsettings.{Environment.GetEnvironmentVariable(@"USECONFIG")}.json", true, true)
+    .AddEnvironmentVariables();
 
 // Add services to the container.
-builder.Services.AddProblemDetails();
+_builder.Services.AddProblemDetails();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+_builder.Services.AddOpenApi();
 
-var app = builder.Build();
+// Add services to the container.
+var _startup = new Startup(_builder.Configuration);
+_startup.ConfigureServices(_builder.Services);
+
+var _app = (_builder
+    .Build()
+    .StartUp() as WebApplication)!;
 
 // Configure the HTTP request pipeline.
-app.UseExceptionHandler();
+_app.UseExceptionHandler();
 
-if (app.Environment.IsDevelopment())
+if (_app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    _app.MapOpenApi();
 }
 
-string[] summaries = ["Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"];
+_app.MapDefaultEndpoints();
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
-
-app.MapDefaultEndpoints();
-
-app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+_app.Run();

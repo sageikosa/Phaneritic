@@ -1,6 +1,5 @@
 using AspireApp.Web;
 using AspireApp.Web.Components;
-using Phaneritic.Implementations.Startup;
 using Microsoft.Extensions.Hosting;
 
 var _builder = WebApplication.CreateBuilder(args);
@@ -8,24 +7,13 @@ var _builder = WebApplication.CreateBuilder(args);
 // Add service defaults & Aspire client integrations.
 _builder.AddServiceDefaults();
 
-_builder.Configuration
-    .AddJsonFile($@"appsettings.{Environment.MachineName}.json", true, true)
-    .AddJsonFile($@"appsettings.{Environment.GetEnvironmentVariable(@"USECONFIG")}.json", true, true)
-    .AddEnvironmentVariables();
-
-// Add services to the container.
-var _startup = new Startup(_builder.Configuration);
-_startup.ConfigureServices(_builder.Services);
-
 // Add services to the container.
 _builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 _builder.Services.AddOutputCache();
 
-var _app = (_builder
-    .Build()
-    .StartUp() as WebApplication)!;
+var _app = _builder.Build();
 
 if (!_app.Environment.IsDevelopment())
 {
