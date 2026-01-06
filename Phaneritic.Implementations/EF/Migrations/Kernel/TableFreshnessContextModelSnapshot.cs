@@ -8,7 +8,7 @@ using Phaneritic.Implementations.EF.TableCache;
 
 #nullable disable
 
-namespace GyroLedger.Kernel.EF.Migrations.Kernel
+namespace Phaneritic.Implementations.EF.Migrations.Kernel
 {
     [DbContext(typeof(TableFreshnessContext))]
     partial class TableFreshnessContextModelSnapshot : ModelSnapshot
@@ -23,7 +23,7 @@ namespace GyroLedger.Kernel.EF.Migrations.Kernel
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("GyroLedger.Kernel.EF.TableCache.TableFreshness", b =>
+            modelBuilder.Entity("Phaneritic.Implementations.EF.TableCache.TableFreshness", b =>
                 {
                     b.Property<string>("TableKey")
                         .HasMaxLength(64)

@@ -12,10 +12,5 @@ function DoSqlFile{
 }
 
 get-item ".\SQL\*.sql" | foreach-object { DoSqlFile($_.FullName) }
-get-item ".\SQL\TableTypes\*.sql" | foreach-object { DoSqlFile($_.FullName) }
-get-item ".\SQL\TableTypes\Rates\*.sql" | foreach-object { DoSqlFile($_.FullName) }
-get-item ".\SQL\Sprocs\*.sql" | foreach-object { DoSqlFile($_.FullName) }
-get-item ".\SQL\Sprocs\Rates\*.sql" | foreach-object { DoSqlFile($_.FullName) }
-DoSqlFile(".\SQL\inserts\Inventory.sql")
+# get-item ".\SQL\Sprocs\*.sql" | foreach-object { DoSqlFile($_.FullName) }
 DoSqlFile(".\SQL\inserts\Operational.sql")
-DoSqlFile(".\SQL\inserts\RegionsZonesLocations.sql")

@@ -10,8 +10,7 @@ $ConnStr = "Server=$DeployInstance;Database=$DeployDB;User ID=$DeployUser;Passwo
 $proj = "Phaneritic.Implementations"
 $proj
 dotnet ef migrations remove -p $proj --context TableFreshnessContext -- krnl $ConnStr
-
-# $proj = "Phaneritic.Operational.Implementations"
-# $proj
-# write-output "----- OperationalContext -----"
-# dotnet ef migrations remove -p $proj --context OperationalContext -- op $ConnStr
+write-output "----- OperationalContext -----"
+dotnet ef migrations remove -p $proj --context OperationalContext -- op $ConnStr
+write-output "----- LedgeringContext -----"
+dotnet ef migrations remove -p $proj --context LedgeringContext -- ldgr $ConnStr

@@ -2,6 +2,7 @@
 using Phaneritic.Interfaces;
 using Phaneritic.Implementations.EF;
 using Phaneritic.Interfaces.Ledgering;
+using Phaneritic.Interfaces.Operational;
 
 namespace Phaneritic.Implementations.Models.Ledgering;
 public class LedgeringContextFactory
@@ -13,7 +14,11 @@ public class LedgeringContextFactory
             CommonKeysDependencies.GetCommonKeysConfigurators()
             .Concat(LedgeringKeysDependencies.GetLedgeringKeysConfigurators())
             .Concat(LedgeringUnicodeKeysDependencies.GetLedgeringUnicodeKeysConfigurators())
-            .Concat(LedgeringIDsDependencies.GetLedgeringIDsConfigurators()),
+            .Concat(LedgeringIDsDependencies.GetLedgeringIDsConfigurators())
+            .Concat(OperationalKeysDependencies.GetOperationalKeysConfigurators())
+            .Concat(OperationalUnicodeKeysDependencies.GetOperationalUnicodeKeysConfigurators())
+            .Concat(OperationalIDsDependencies.GetOperationalIDsConfigurators())
+            .Concat(OperationalLongIDsDependencies.GetOperationalLongIDsConfigurators()),
             [new ConstantSchemaNamer(args[0])],
             new ConstantSharedDbConnection(args[1]));
 }
