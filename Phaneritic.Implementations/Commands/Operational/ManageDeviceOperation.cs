@@ -1,25 +1,26 @@
-﻿using Phaneritic.Interfaces.CommitWork;
+﻿using Phaneritic.Implementations.Models.Operational;
+using Phaneritic.Interfaces;
+using Phaneritic.Interfaces.CommitWork;
 using Phaneritic.Interfaces.LudCache;
 using Phaneritic.Interfaces.Operational;
+using System.Collections.Concurrent;
 
-namespace Phaneritic.Implementations.Operational;
+namespace Phaneritic.Implementations.Commands.Operational;
 
-public class ManageUserOperation(
+public class ManageDeviceOperation(
     IOperationalContext operationalContext,
     IWorkCommitter workCommitter,
-    ILudDictionary<MethodKey, MethodDto> methods,
     IAccessSessionReader accessSessionReader,
-    IEnumerable<IProvideScopedOperations> provideOperations
+    ILudDictionary<MethodKey, MethodDto> methods,
+    ICanonicalDictionary<AccessMechanismID, ConcurrentDictionary<MethodKey, OperationDto>> operations
     ) : IManageOperation
 {
-    private Lis t<IProvideScopedOperations> ProvideOperations = [.. provideOperations];
-
-    public int Priority => 100;
+    public int Priority => 10;
 
     public OperationDto? StartOperation(MethodKey methodKey)
     {
         if ((accessSessionReader.GetScopedAccessSession() is AccessSessionDto _session)
-            && (_session.AccessMechanism?.AccessMechanismType.IsUserAccess ?? false))
+            && !(_session.AccessMechanism?.AccessMechanismType.IsUserAccess ?? true))
         {
             // not for user access implies device-only
             if (methods.Get(methodKey) is MethodDto _method)
@@ -46,7 +47,6 @@ public class ManageUserOperation(
                         OperationID = _newOp.OperationID,
                     });
                 workCommitter.CommitWork(operationalContext);
-                ProvideOperations.ClearCache();
 
                 // return and canonical dictionary
                 var _opDto = new OperationDto
@@ -57,6 +57,10 @@ public class ManageUserOperation(
                     OperationID = _newOp.OperationID,
                     StartedAt = _now
                 };
+
+                // add to mechanism oplist cache
+                var _oList = operations.GetOrAdd(_session.AccessMechanism.AccessMechanismID, (_) => []);
+                _oList.AddOrUpdate(methodKey, _opDto, (_, _old) => _opDto);
                 return _opDto;
             }
             else
@@ -70,7 +74,7 @@ public class ManageUserOperation(
     public bool StopOperation(OperationID operationID)
     {
         if ((accessSessionReader.GetScopedAccessSession() is AccessSessionDto _session)
-            && (_session.AccessMechanism?.AccessMechanismType.IsUserAccess ?? false))
+            && !(_session.AccessMechanism?.AccessMechanismType.IsUserAccess ?? true))
         {
             var _current = operationalContext.Operations
                 .Where(_o => _o.OperationID == operationID)
@@ -90,7 +94,13 @@ public class ManageUserOperation(
                         MethodKey = _current.MethodKey
                     });
                 workCommitter.CommitWork(operationalContext);
-                ProvideOperations.ClearCache();
+
+                // clean canonical dictionary
+                if (operations.TryGetValue(_session.AccessMechanism.AccessMechanismID)
+                    is ConcurrentDictionary<MethodKey, OperationDto> _oList)
+                {
+                    _oList.TryRemove(_current.MethodKey, out _);
+                }
             }
             return true;
         }

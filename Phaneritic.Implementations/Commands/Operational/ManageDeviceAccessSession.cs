@@ -1,9 +1,10 @@
-﻿using Phaneritic.Interfaces;
+﻿using Phaneritic.Implementations.Models.Operational;
+using Phaneritic.Interfaces;
 using Phaneritic.Interfaces.CommitWork;
 using Phaneritic.Interfaces.Operational;
 using System.Collections.Concurrent;
 
-namespace Phaneritic.Implementations.Operational;
+namespace Phaneritic.Implementations.Commands.Operational;
 public class ManageDeviceAccessSession(
     IOperationalContext operationalContext,
     IWorkCommitter workCommitter,

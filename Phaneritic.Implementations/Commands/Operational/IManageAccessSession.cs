@@ -1,6 +1,6 @@
 ﻿using Phaneritic.Interfaces.Operational;
 
-namespace Phaneritic.Implementations.Operational;
+namespace Phaneritic.Implementations.Commands.Operational;
 public interface IManageAccessSession 
 {
     int Priority { get; }

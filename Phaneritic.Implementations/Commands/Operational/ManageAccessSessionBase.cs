@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Phaneritic.Implementations.Models.Operational;
 using Phaneritic.Interfaces.CommitWork;
 using Phaneritic.Interfaces.Operational;
 
-namespace Phaneritic.Implementations.Operational;
+namespace Phaneritic.Implementations.Commands.Operational;
 
 public class ManageAccessSessionBase(
     IOperationalContext operationalContext,
@@ -122,21 +123,6 @@ public class ManageAccessSessionBase(
             AccessorID = accessorID
         });
 
-        if (accessMechanism.Location != null)
-        {
-            // location bound device, methods that stay over sessions need to move
-            var _oldMechSession = AccessSessionReader.GetAccessSession(accessMechanism.AccessMechanismID);
-            if (_oldMechSession != null)
-            {
-                var _ops = GetOperations(_oldMechSession.AccessSessionID);
-                TransferPersistentOperations(_ops, _startingSession, _now);
-                TerminateRemainingOperations(_ops, _now);
-                TerminateAccessSession(_oldMechSession.AccessSessionID, _now);
-            }
-        }
-        else
-        {
-            // not location bound
             var _oldAccessorSession = AccessSessionReader.GetAccessSessions(accessorID)
                 .FirstOrDefault(_s => _s.AccessMechanism?.AccessMechanismType.AccessMechanismTypeKey == accessMechanism.AccessMechanismType.AccessMechanismTypeKey);
 
@@ -148,7 +134,6 @@ public class ManageAccessSessionBase(
                 TerminateRemainingOperations(_ops, _now);
                 TerminateAccessSession(_oldAccessorSession.AccessSessionID, _now);
             }
-        }
 
         // TODO: rate tracking
         WorkCommitter.CommitWork(OperationalContext);

@@ -1,9 +1,10 @@
-﻿using Phaneritic.Implementations.Sempahores;
+﻿using Phaneritic.Implementations.Models.Operational;
+using Phaneritic.Implementations.Sempahores;
 using Phaneritic.Interfaces.CommitWork;
 using Phaneritic.Interfaces.LudCache;
 using Phaneritic.Interfaces.Operational;
 
-namespace Phaneritic.Implementations.Operational;
+namespace Phaneritic.Implementations.Commands.Operational;
 public class ManageUserAccessSession(
     IOperationalContext operationalContext,
     IWorkCommitter workCommitter,
