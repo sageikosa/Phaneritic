@@ -23,6 +23,7 @@ The first two I'd previously isolated and made some repositories to explain the 
 - Startup seeding for host builder type applications
 
 ## Database Connection Injection
+Phaneritic supports two database connection types, the main transactional work connection and a logging connection.
 
 ## Multiple Interdependent Work Units in One Transaction
 Let's assume for a moment that you are like me, and for reasons, you don't want one massive `DbContext` model to rule them all.  
@@ -33,6 +34,7 @@ Commit-->DbContext1
 Commit-->DbContext2
 ```
 
+---
 Or more likely you may have two or more "higher-level" data-management classes that use the same `DbContext` to manipulate data, and you don't need to know about the databases per se.
 ```mermaid
 graph LR;
@@ -42,6 +44,7 @@ BoxManager-->DbContext(DbContext Inventory)
 CartManager-->DbContext
 ```
 
+---
 Further, you may have a mix of EF updates and SQL SPROC calls that should _really_ commit or fail as a unit.
 ```mermaid
 graph LR;
@@ -51,6 +54,7 @@ BoxManager-->DbContext(DbContext Inventory)
 RateCounter-->DbCommands(DbCommands)
 ```
 
+---
 and so forth in increasingly complex connectivity and depth
 ```mermaid
 graph LR;
@@ -68,7 +72,48 @@ RateCounter-->DbCommands(DbCommands)
 
 
 ## Dto Packing
+Data transfer objects (Dtos) are representations of entities packed for transport across system boundaries.  
+Dtos are defined in the "Interfaces" project/assembly so that they can be imported into implementation and client projects.  
+`IPackRecord<TModel,TDto>` is a contract that defines packing operations usable in implementations returning Dtos.  
+I have deliberately left out unpacking.  
+Conventionally, `FrozenSet<>` and `FrozenDictionary<,>` are used for collections to ensure immutability, necessary for caching scenarios.  
+The base interface defines a default `GetFrozenSet` to support packing implementations.
+
+```csharp
+public interface IPackRecord<in TModel, TDto>
+    where TDto: class, IEquatable<TDto>
+{
+    [return: NotNullIfNotNull(nameof(model))]
+    TDto? Pack(TModel? model);
+
+    /// <summary>Default interface implementation using <see cref="Pack(TModel?)"/></summary>
+    public IEnumerable<TDto> GetDtos(IEnumerable<TModel> models)
+        => models.Select(x => Pack(x)).OfType<TDto>();
+
+    public FrozenSet<TDto> GetFrozenSet(IEnumerable<TModel>? models)
+        => models == null
+        ? []
+        : models.Select(x => Pack(x)).OfType<TDto>().ToFrozenSet();
+}
+```
+
+The `Pack` methods are all very similar and follow the same pattern.  
+All the Dto packing implementations are hand-cranked, but assisted by Visual Studio's very generous AI auto-complete due to their regularity.  
+I looked at using _AutoMapper_, but figured that the time to learn some elaborate tricks and annotate, versus me just pumping these out with auto-complete wasn't worth it at this time.
+```csharp
+    [return: NotNullIfNotNull(nameof(model))]
+    public OptionGroupDto? Pack(OptionGroup? model)
+        => model != null
+        ? new()
+        {
+            OptionGroupKey = model.OptionGroupKey,
+            Description = model.Description,
+            ValidOptionTypeKeys = (model.OptionTypes?.Select(_ot => _ot.OptionTypeKey).ToHashSet() ?? []).ToFrozenSet()
+        }
+        : null;
+```
 
 ## Lud Caching
+Lookup data (Lud) caching keeps in-memory snapshots of relatively stable lookup data, indexed by key values.
 
 ## Kick Starting Refreshables
