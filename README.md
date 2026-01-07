@@ -124,12 +124,13 @@ Other relevant interfaces include:
 |-----------------------------------|------|
 | `ILudCacheable<TKey>`             | Marks a Dto type as cacheable and defines the index key type, used to help ensure valid setup and use |
 | `ILudCacheRefresher`              | Refreshes a single `LudDictionary`, typically implemented as a derived class of `LudCacheRefresherBase` |
-| `ILudCacheFreshness`              | Manage current local process freshnesses |
+| `ILudCacheFreshness`              | Capabilities to manage all current local process freshnesses |
 | `ILudCacheGetFreshness<TRefresh>` | Get process local freshness for a specific `ILudCacheRefresher` |
-| `ILudCacheFreshnessNotify`        | Implement on a class to contribute work on refresh notifications |
+| `ILudCacheFreshnessNotify`        | Implement on a class to contribute work on refresh notifications, such as refreshing a complex dependent caching service |
 | `ILudCacheRefreshAll`             | Refreshes every `LudDictionary` that is missing or out of date; notifies relevant `ILudCacheRefreshNotify` dependencies |
 | `ILudCacheUpdate<TRefresh>`       | To be used when the underlying tabular data is changed for a specific `ILudCacheRefresher` |
 
-
-
 ## Kick Starting Refreshables
+There is a general facility to kick-start (singleton?) dependencies that need to be seeded before the application is running.  All Lud Caching goes through this.
+
+To participate any class that needs to be seeded at startup must implement `IKickStart` and register itself as a scoped service.
