@@ -114,6 +114,22 @@ I looked at using _AutoMapper_, but figured that the time to learn some elaborat
 ```
 
 ## Lud Caching
-Lookup data (Lud) caching keeps in-memory snapshots of relatively stable lookup data, indexed by key values.
+Lookup data (Lud) caching keeps in-memory snapshots of relatively stable lookup data, indexed by key values.  
+An `ILudDictionary<TKey, TDto>` can be used in place of a query to the underlying database table sourcing the Dtos in the LudDictionary.  
+In the UI this often manifests as lookup stitching and drop-down list entries.  
+`BaseLudDictionary<TKey, TLud>` defines the default implementation and is registered as a generic singleton.
+
+Other relevant interfaces include:  
+| Interface                         | Use  |
+|-----------------------------------|------|
+| `ILudCacheable<TKey>`             | Marks a Dto type as cacheable and defines the index key type, used to help ensure valid setup and use |
+| `ILudCacheRefresher`              | Refreshes a single `LudDictionary`, typically implemented as a derived class of `LudCacheRefresherBase` |
+| `ILudCacheFreshness`              | Manage current local process freshnesses |
+| `ILudCacheGetFreshness<TRefresh>` | Get process local freshness for a specific `ILudCacheRefresher` |
+| `ILudCacheFreshnessNotify`        | Implement on a class to contribute work on refresh notifications |
+| `ILudCacheRefreshAll`             | Refreshes every `LudDictionary` that is missing or out of date; notifies relevant `ILudCacheRefreshNotify` dependencies |
+| `ILudCacheUpdate<TRefresh>`       | To be used when the underlying tabular data is changed for a specific `ILudCacheRefresher` |
+
+
 
 ## Kick Starting Refreshables
