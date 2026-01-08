@@ -363,3 +363,4 @@ FodyWeavers.xsd
 /AspireApp/AspireApp.Web/appsettings.xpsraptor.json
 /AspireApp/AspireApp.AppHost/appsettings.xpsraptor.json
 /AspireApp/AspireApp.ApiService/appsettings.xpsraptor.json
+/Phaneritic.WebApi/appsettings.xpsraptor.json
