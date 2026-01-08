@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phaneritic.Generators", "..
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phaneritic.Generators.Attributes", "..\Phaneritic.Generators.Attributes\Phaneritic.Generators.Attributes.csproj", "{EE231415-83BA-4B61-8FC1-4D567A2B1263}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phaneritic.WebApi", "..\Phaneritic.WebApi\Phaneritic.WebApi.csproj", "{46F20998-C0A6-428C-9C79-C2191EE1DF0A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{EE231415-83BA-4B61-8FC1-4D567A2B1263}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE231415-83BA-4B61-8FC1-4D567A2B1263}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE231415-83BA-4B61-8FC1-4D567A2B1263}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46F20998-C0A6-428C-9C79-C2191EE1DF0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46F20998-C0A6-428C-9C79-C2191EE1DF0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46F20998-C0A6-428C-9C79-C2191EE1DF0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46F20998-C0A6-428C-9C79-C2191EE1DF0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
