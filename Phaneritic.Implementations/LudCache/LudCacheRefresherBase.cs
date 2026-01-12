@@ -27,6 +27,9 @@ public abstract class LudCacheRefresherBase<TKey, TLud, TModel>(
     /// </summary>
     protected abstract TKey GetKey(TLud dto);
 
+    /// <summary>
+    /// Feed models from GetModels to packer, then convert to dictionary using GetKey.
+    /// </summary>
     protected Dictionary<TKey, TLud> GetDictionary()
         => packer.GetDtos(GetModels()).ToDictionary(_d => GetKey(_d));
 }

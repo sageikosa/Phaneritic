@@ -25,6 +25,7 @@ public class WorkCommitter(
             var _timer = Stopwatch.StartNew();
             try
             {
+                // go through all wrappers using extension method on list
                 Wrappers.DoErrorWrap(() =>
                 {
                     // scope marker for transaction "using"
@@ -84,6 +85,7 @@ public class WorkCommitter(
                         var _afterWork = new List<IContributeWork>();
                         foreach (var _contrib in contributors)
                         {
+                            // unique after work calls
                             if (!_afterWork.Contains(_contrib))
                             {
                                 _afterWork.Add(_contrib);

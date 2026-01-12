@@ -82,17 +82,7 @@ public static class KernelDependencies
         services.AddLedgeringUnicodeKeysConfigurators();
 
         // cache refreshers
-        services.AddScoped<ILudCacheRefresher, ProcessNodeTypeKeyRefresh>();
-        services.AddScoped<ILudCacheRefresher, ProcessNodeKeyRefresh>();
-        services.AddScoped<ILudCacheRefresher, OptionTypeKeyRefresh>();
-        services.AddScoped<ILudCacheRefresher, OptionGroupKeyRefresh>();
-        services.AddScoped<ILudCacheRefresher, AccessGroupKeyRefresh>();
-        services.AddScoped<ILudCacheRefresher, MethodKeyRefresh>();
-        services.AddScoped<ILudCacheRefresher, AccessMechanismTypeKeyRefresh>();
-        services.AddScoped<ILudCacheRefresher, AccessMechanismKeyRefresh>();
-        services.AddScoped<ILudCacheRefresher, AccessMechanismIDRefresh>();
-        services.AddScoped<ILudCacheRefresher, ActivityTypeKeyRefresh>();
-
+        services.AddImplementationsRefreshers();
         services.AddHostedService<LudCacheFreshnessPoller>();
 
         return services;
