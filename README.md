@@ -22,8 +22,10 @@ The first two I'd previously isolated and made some repositories to explain the 
 - Configuration and slow-changing code-available data caching
 - Startup seeding for host builder type applications
 
+As a late addition, I added some of the operational services and logging services I use in my Warehouse Operations System code, but I've omitted the ledgering tables, relations and entities for inventory, demands, fulfillment and movement tracking, since they're specific to warehouse intralogistics.
+
 ## Database Connection Injection
-Phaneritic supports two database connection types, the main transactional work connection and a logging connection.
+Phaneritic supports two database connection types, the main transactional [work connection](https://github.com/sageikosa/Phaneritic/blob/main/Phaneritic.Implementations/Database/DbScopedConnection.cs) and a [logging connection](https://github.com/sageikosa/Phaneritic/blob/main/Phaneritic.Implementations/Database/DbLoggingConnection.cs).
 
 ## Multiple Interdependent Work Units in One Transaction
 Let's assume for a moment that you are like me, and for reasons, you don't want one massive `DbContext` model to rule them all.  
@@ -117,4 +119,5 @@ To improve the efficiency of defining and registering refreshers, a T4 Template 
 ## Kick Starting Refreshables
 There is a general facility to kick-start (singleton?) dependencies that need to be seeded before the application is running.  All Lud Caching goes through this.
 
-To participate any class that needs to be seeded at startup must implement `IKickStart` and register itself as a scoped service.
+To participate any class that needs to be seeded at startup must implement [`IKickStart`](https://github.com/sageikosa/Phaneritic/blob/main/Phaneritic.Implementations/Startup/IKickStart.cs) and register itself as a scoped service.
+
