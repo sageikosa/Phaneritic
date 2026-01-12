@@ -50,7 +50,10 @@ RateCounter-->DbCommands(DbCommands)
 It is implemented by classes that need to participate in transaction processing.  
 Implementors should commit any work they are directly responsible for and return a set of additional work contributors to be processed recursively.  
 
-[`IWorkCommitter`](https://github.com/sageikosa/Phaneritic/blob/main/Phaneritic.Interfaces/CommitWork/IWorkCommitter.cs) defines the interface for committing work by providing a list of work contributors.
+For example, [`BaseDbCommands`](https://github.com/sageikosa/Phaneritic/blob/main/Phaneritic.Implementations/Database/BaseDbCommands.cs) implements `ContributeWork` by executing the commands that have been added to it, and implements `ContributeAfterWork` by clearing the commands since they had been committed.  
+Also, [`BaseDbContext`](https://github.com/sageikosa/Phaneritic/blob/main/Phaneritic.Implementations/EF/BaseDbContext.cs) implements `ContributeWork` by calling `SaveChanegs`, and implements `ContributeAfterWork` by clearing the change tracker since they had been committed.  
+
+[`IWorkCommitter`](https://github.com/sageikosa/Phaneritic/blob/main/Phaneritic.Interfaces/CommitWork/IWorkCommitter.cs) defines the interface for committing work by providing a list of work contributors.  
 It is implemented by [`WorkCommitter`](https://github.com/sageikosa/Phaneritic/blob/main/Phaneritic.Implementations/CommitWork/WorkCommitter.cs)
 
 `WorkCommitter` uses a .NET `TransactionScope`, and in practice, using the same dependency scoped connection for multiple database executions and `DbContext` saves should be fairly easy to implement without having to worry about distributed transactions.
