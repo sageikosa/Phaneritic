@@ -14,4 +14,7 @@ public class DatabaseOptions
 
     /// <summary>Default = IsolationLevel.ReadCommitted</summary>
     public IsolationLevel IsolationLevel { get; set; } = IsolationLevel.ReadCommitted;
+
+    public string CaseSensitiveCollation { get; set; } = @"SQL_Latin1_General_CP1_CS_AS";
+    public string CaseInsensitiveCollation { get; set; } = @"SQL_Latin1_General_CP1_CI_AS";
 }
