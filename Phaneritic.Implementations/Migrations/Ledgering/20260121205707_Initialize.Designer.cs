@@ -12,7 +12,7 @@ using Phaneritic.Implementations.Models.Ledgering;
 namespace Phaneritic.Implementations.Migrations.Ledgering
 {
     [DbContext(typeof(LedgeringContext))]
-    [Migration("20260106185555_Initialize")]
+    [Migration("20260121205707_Initialize")]
     partial class Initialize
     {
         /// <inheritdoc />
@@ -21,7 +21,7 @@ namespace Phaneritic.Implementations.Migrations.Ledgering
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("ldgr")
-                .HasAnnotation("ProductVersion", "10.0.0")
+                .HasAnnotation("ProductVersion", "10.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -51,7 +51,8 @@ namespace Phaneritic.Implementations.Migrations.Ledgering
                         .IsRequired()
                         .HasMaxLength(16)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(16)");
+                        .HasColumnType("varchar(16)")
+                        .UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
                     b.Property<long>("DurationMicroSeconds")
                         .HasColumnType("bigint");
@@ -78,7 +79,8 @@ namespace Phaneritic.Implementations.Migrations.Ledgering
                         .IsRequired()
                         .HasMaxLength(16)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(16)");
+                        .HasColumnType("varchar(16)")
+                        .UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
                     b.Property<long>("OperationID")
                         .HasColumnType("bigint");
@@ -98,19 +100,22 @@ namespace Phaneritic.Implementations.Migrations.Ledgering
                     b.Property<string>("ActivityTypeKey")
                         .HasMaxLength(16)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(16)");
+                        .HasColumnType("varchar(16)")
+                        .UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
                     b.Property<string>("Category")
                         .IsRequired()
                         .HasMaxLength(16)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(16)");
+                        .HasColumnType("varchar(16)")
+                        .UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(256)
                         .IsUnicode(true)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(256)")
+                        .UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
                     b.HasKey("ActivityTypeKey");
 
@@ -138,25 +143,29 @@ namespace Phaneritic.Implementations.Migrations.Ledgering
                         .IsRequired()
                         .HasMaxLength(16)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(16)");
+                        .HasColumnType("varchar(16)")
+                        .UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
                     b.Property<string>("ExceptionName")
                         .IsRequired()
                         .HasMaxLength(64)
                         .IsUnicode(true)
-                        .HasColumnType("nvarchar(64)");
+                        .HasColumnType("nvarchar(64)")
+                        .UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
                     b.Property<string>("Message")
                         .IsRequired()
                         .HasMaxLength(256)
                         .IsUnicode(true)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(256)")
+                        .UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
                     b.Property<string>("MethodKey")
                         .IsRequired()
                         .HasMaxLength(16)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(16)");
+                        .HasColumnType("varchar(16)")
+                        .UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
                     b.Property<long>("OffsetMicroSeconds")
                         .HasColumnType("bigint");
@@ -189,7 +198,8 @@ namespace Phaneritic.Implementations.Migrations.Ledgering
                     b.Property<string>("InfoEntryKey")
                         .HasMaxLength(16)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(16)");
+                        .HasColumnType("varchar(16)")
+                        .UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
                     b.Property<int>("AccessMechanismID")
                         .HasColumnType("int");
@@ -204,19 +214,22 @@ namespace Phaneritic.Implementations.Migrations.Ledgering
                         .IsRequired()
                         .HasMaxLength(16)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(16)");
+                        .HasColumnType("varchar(16)")
+                        .UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
                     b.Property<string>("InfoEntryValue")
                         .IsRequired()
                         .HasMaxLength(256)
                         .IsUnicode(true)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(256)")
+                        .UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
                     b.Property<string>("MethodKey")
                         .IsRequired()
                         .HasMaxLength(16)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(16)");
+                        .HasColumnType("varchar(16)")
+                        .UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
                     b.Property<long>("OffsetMicroSeconds")
                         .HasColumnType("bigint");

@@ -49,8 +49,8 @@ namespace Phaneritic.Implementations.Migrations.Operational
                 schema: "op",
                 columns: table => new
                 {
-                    AccessGroupKey = table.Column<string>(type: "varchar(32)", unicode: false, maxLength: 32, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false)
+                    AccessGroupKey = table.Column<string>(type: "varchar(32)", unicode: false, maxLength: 32, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
+                    Description = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS")
                 },
                 constraints: table =>
                 {
@@ -62,8 +62,8 @@ namespace Phaneritic.Implementations.Migrations.Operational
                 schema: "op",
                 columns: table => new
                 {
-                    AccessorCredentialTypeKey = table.Column<string>(type: "varchar(8)", unicode: false, maxLength: 8, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false)
+                    AccessorCredentialTypeKey = table.Column<string>(type: "varchar(8)", unicode: false, maxLength: 8, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
+                    Description = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS")
                 },
                 constraints: table =>
                 {
@@ -75,8 +75,8 @@ namespace Phaneritic.Implementations.Migrations.Operational
                 schema: "op",
                 columns: table => new
                 {
-                    AccessorTypeKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false)
+                    AccessorTypeKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
+                    Description = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS")
                 },
                 constraints: table =>
                 {
@@ -88,8 +88,8 @@ namespace Phaneritic.Implementations.Migrations.Operational
                 schema: "op",
                 columns: table => new
                 {
-                    MethodKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
+                    MethodKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
+                    Description = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
                     IsTransient = table.Column<bool>(type: "bit", nullable: false),
                     StayWithAccessMechanism = table.Column<bool>(type: "bit", nullable: false),
                     StayWithAccessor = table.Column<bool>(type: "bit", nullable: false)
@@ -107,7 +107,7 @@ namespace Phaneritic.Implementations.Migrations.Operational
                     OperationLogID = table.Column<long>(type: "bigint", nullable: false),
                     AccessSessionID = table.Column<long>(type: "bigint", nullable: false),
                     OperationID = table.Column<long>(type: "bigint", nullable: true),
-                    MethodKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: true),
+                    MethodKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: true, collation: "SQL_Latin1_General_CP1_CI_AS"),
                     LogTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     AccessMechanismID = table.Column<int>(type: "int", nullable: false),
                     AccessorID = table.Column<int>(type: "int", nullable: false),
@@ -123,8 +123,8 @@ namespace Phaneritic.Implementations.Migrations.Operational
                 schema: "op",
                 columns: table => new
                 {
-                    OptionGroupKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false)
+                    OptionGroupKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
+                    Description = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS")
                 },
                 constraints: table =>
                 {
@@ -136,8 +136,8 @@ namespace Phaneritic.Implementations.Migrations.Operational
                 schema: "op",
                 columns: table => new
                 {
-                    OptionTypeKey = table.Column<string>(type: "varchar(32)", unicode: false, maxLength: 32, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false)
+                    OptionTypeKey = table.Column<string>(type: "varchar(32)", unicode: false, maxLength: 32, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
+                    Description = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS")
                 },
                 constraints: table =>
                 {
@@ -149,8 +149,8 @@ namespace Phaneritic.Implementations.Migrations.Operational
                 schema: "op",
                 columns: table => new
                 {
-                    ProcessNodeTypeKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false)
+                    ProcessNodeTypeKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
+                    Description = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS")
                 },
                 constraints: table =>
                 {
@@ -163,9 +163,9 @@ namespace Phaneritic.Implementations.Migrations.Operational
                 columns: table => new
                 {
                     AccessorID = table.Column<int>(type: "int", nullable: false),
-                    AccessorKey = table.Column<string>(type: "varchar(64)", unicode: false, maxLength: 64, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
-                    AccessorTypeKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false)
+                    AccessorKey = table.Column<string>(type: "varchar(64)", unicode: false, maxLength: 64, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
+                    Description = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
+                    AccessorTypeKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS")
                 },
                 constraints: table =>
                 {
@@ -184,8 +184,8 @@ namespace Phaneritic.Implementations.Migrations.Operational
                 schema: "op",
                 columns: table => new
                 {
-                    AccessorTypeKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false),
-                    AccessorCredentialTypeKey = table.Column<string>(type: "varchar(8)", unicode: false, maxLength: 8, nullable: false)
+                    AccessorTypeKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
+                    AccessorCredentialTypeKey = table.Column<string>(type: "varchar(8)", unicode: false, maxLength: 8, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS")
                 },
                 constraints: table =>
                 {
@@ -211,8 +211,8 @@ namespace Phaneritic.Implementations.Migrations.Operational
                 schema: "op",
                 columns: table => new
                 {
-                    AccessGroupKey = table.Column<string>(type: "varchar(32)", unicode: false, maxLength: 32, nullable: false),
-                    MethodKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false)
+                    AccessGroupKey = table.Column<string>(type: "varchar(32)", unicode: false, maxLength: 32, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
+                    MethodKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS")
                 },
                 constraints: table =>
                 {
@@ -238,8 +238,8 @@ namespace Phaneritic.Implementations.Migrations.Operational
                 schema: "op",
                 columns: table => new
                 {
-                    OptionGroupKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false),
-                    OptionTypeKey = table.Column<string>(type: "varchar(32)", unicode: false, maxLength: 32, nullable: false)
+                    OptionGroupKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
+                    OptionTypeKey = table.Column<string>(type: "varchar(32)", unicode: false, maxLength: 32, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS")
                 },
                 constraints: table =>
                 {
@@ -265,13 +265,13 @@ namespace Phaneritic.Implementations.Migrations.Operational
                 schema: "op",
                 columns: table => new
                 {
-                    AccessMechanismTypeKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
+                    AccessMechanismTypeKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
+                    Description = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
                     IsUserAccess = table.Column<bool>(type: "bit", nullable: false),
                     IsRoamingAccess = table.Column<bool>(type: "bit", nullable: false),
                     IsPoolable = table.Column<bool>(type: "bit", nullable: false),
                     IsValidatedIPAddress = table.Column<bool>(type: "bit", nullable: false),
-                    ProcessNodeTypeKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: true)
+                    ProcessNodeTypeKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: true, collation: "SQL_Latin1_General_CP1_CI_AS")
                 },
                 constraints: table =>
                 {
@@ -289,10 +289,10 @@ namespace Phaneritic.Implementations.Migrations.Operational
                 schema: "op",
                 columns: table => new
                 {
-                    ProcessNodeKey = table.Column<string>(type: "varchar(32)", unicode: false, maxLength: 32, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
-                    ProcessNodeTypeKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false),
-                    ParentNodeKey = table.Column<string>(type: "varchar(32)", unicode: false, maxLength: 32, nullable: true)
+                    ProcessNodeKey = table.Column<string>(type: "varchar(32)", unicode: false, maxLength: 32, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
+                    Description = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
+                    ProcessNodeTypeKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
+                    ParentNodeKey = table.Column<string>(type: "varchar(32)", unicode: false, maxLength: 32, nullable: true, collation: "SQL_Latin1_General_CP1_CI_AS")
                 },
                 constraints: table =>
                 {
@@ -317,8 +317,8 @@ namespace Phaneritic.Implementations.Migrations.Operational
                 schema: "op",
                 columns: table => new
                 {
-                    ProcessNodeTypeKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false),
-                    OptionGroupKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false)
+                    ProcessNodeTypeKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
+                    OptionGroupKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS")
                 },
                 constraints: table =>
                 {
@@ -345,7 +345,7 @@ namespace Phaneritic.Implementations.Migrations.Operational
                 columns: table => new
                 {
                     AccessorID = table.Column<int>(type: "int", nullable: false),
-                    AccessGroupKey = table.Column<string>(type: "varchar(32)", unicode: false, maxLength: 32, nullable: false)
+                    AccessGroupKey = table.Column<string>(type: "varchar(32)", unicode: false, maxLength: 32, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS")
                 },
                 constraints: table =>
                 {
@@ -372,8 +372,8 @@ namespace Phaneritic.Implementations.Migrations.Operational
                 columns: table => new
                 {
                     AccessorID = table.Column<int>(type: "int", nullable: false),
-                    AccessorCredentialTypeKey = table.Column<string>(type: "varchar(8)", unicode: false, maxLength: 8, nullable: false),
-                    CredentialValue = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: false),
+                    AccessorCredentialTypeKey = table.Column<string>(type: "varchar(8)", unicode: false, maxLength: 8, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
+                    CredentialValue = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: false, collation: "SQL_Latin1_General_CP1_CS_AS"),
                     IsEnabled = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -400,8 +400,8 @@ namespace Phaneritic.Implementations.Migrations.Operational
                 schema: "op",
                 columns: table => new
                 {
-                    AccessorTypeKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false),
-                    AccessMechanismTypeKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false)
+                    AccessorTypeKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
+                    AccessMechanismTypeKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS")
                 },
                 constraints: table =>
                 {
@@ -427,8 +427,8 @@ namespace Phaneritic.Implementations.Migrations.Operational
                 schema: "op",
                 columns: table => new
                 {
-                    MethodKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false),
-                    AccessMechanismTypeKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false)
+                    MethodKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
+                    AccessMechanismTypeKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS")
                 },
                 constraints: table =>
                 {
@@ -455,11 +455,11 @@ namespace Phaneritic.Implementations.Migrations.Operational
                 columns: table => new
                 {
                     AccessMechanismID = table.Column<int>(type: "int", nullable: false),
-                    AccessMechanismKey = table.Column<string>(type: "varchar(64)", unicode: false, maxLength: 64, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
-                    ProcessNodeKey = table.Column<string>(type: "varchar(32)", unicode: false, maxLength: 32, nullable: true),
+                    AccessMechanismKey = table.Column<string>(type: "varchar(64)", unicode: false, maxLength: 64, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
+                    Description = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
+                    ProcessNodeKey = table.Column<string>(type: "varchar(32)", unicode: false, maxLength: 32, nullable: true, collation: "SQL_Latin1_General_CP1_CI_AS"),
                     IsEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    AccessMechanismTypeKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false)
+                    AccessMechanismTypeKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS")
                 },
                 constraints: table =>
                 {
@@ -484,9 +484,9 @@ namespace Phaneritic.Implementations.Migrations.Operational
                 schema: "op",
                 columns: table => new
                 {
-                    ProcessNodeKey = table.Column<string>(type: "varchar(32)", unicode: false, maxLength: 32, nullable: false),
-                    OptionTypeKey = table.Column<string>(type: "varchar(32)", unicode: false, maxLength: 32, nullable: false),
-                    OptionValue = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false)
+                    ProcessNodeKey = table.Column<string>(type: "varchar(32)", unicode: false, maxLength: 32, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
+                    OptionTypeKey = table.Column<string>(type: "varchar(32)", unicode: false, maxLength: 32, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
+                    OptionValue = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false, collation: "SQL_Latin1_General_CP1_CS_AS")
                 },
                 constraints: table =>
                 {
@@ -536,7 +536,7 @@ namespace Phaneritic.Implementations.Migrations.Operational
                 {
                     OperationID = table.Column<long>(type: "bigint", nullable: false),
                     AccessSessionID = table.Column<long>(type: "bigint", nullable: false),
-                    MethodKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false),
+                    MethodKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
                     StartedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     AccessMechanismID = table.Column<int>(type: "int", nullable: false),
                     AccessorID = table.Column<int>(type: "int", nullable: false)

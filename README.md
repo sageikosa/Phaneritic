@@ -9,6 +9,9 @@ Like an igneous intrusion (or pluton), this code has cooled over time and worked
 By publicizing it, I am hoping its structures will be visible to the unaided developer eye, and might provide some utility for others.  
 Also, since almost all my code has been hidden under corporate ground for most of my career, this intrusion demonstrates that there have been forces at work which could not be seen.
 
+## Updates
+2026-01-21: added support for case-sensitive and case-insensitive collations to permeate to DB
+
 ## Major Feature Areas
 The following lists the major features areas in terse summary form.  
 The first two I'd previously isolated and made some repositories to explain the basics, they live here in their "native" original form.

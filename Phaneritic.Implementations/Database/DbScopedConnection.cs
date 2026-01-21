@@ -5,6 +5,6 @@ namespace Phaneritic.Implementations.Database;
 
 public class DbScopedConnection(
     IOptionsSnapshot<DatabaseOptions> options
-    ) : BaseDbConnection(options.Value.StandardConnectString), IDbScopedConnection, IDisposable
+    ) : BaseDbConnection(options.Value.StandardConnectString, options.Value.CaseInsensitiveCollation, options.Value.CaseSensitiveCollation), IDbScopedConnection, IDisposable
 {
 }

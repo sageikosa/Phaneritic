@@ -20,5 +20,5 @@ public class LedgeringContextFactory
             .Concat(OperationalIDsDependencies.GetOperationalIDsConfigurators())
             .Concat(OperationalLongIDsDependencies.GetOperationalLongIDsConfigurators()),
             [new ConstantSchemaNamer(args[0])],
-            new ConstantSharedDbConnection(args[1]));
+            new ConstantSharedDbConnection(args[1], args[2], args[3]));
 }

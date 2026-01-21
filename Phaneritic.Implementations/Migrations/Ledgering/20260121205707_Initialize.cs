@@ -25,9 +25,9 @@ namespace Phaneritic.Implementations.Migrations.Ledgering
                 schema: "ldgr",
                 columns: table => new
                 {
-                    ActivityTypeKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
-                    Category = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false)
+                    ActivityTypeKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
+                    Description = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
+                    Category = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS")
                 },
                 constraints: table =>
                 {
@@ -43,8 +43,8 @@ namespace Phaneritic.Implementations.Migrations.Ledgering
                     AccessorID = table.Column<int>(type: "int", nullable: false),
                     AccessMechanismID = table.Column<int>(type: "int", nullable: false),
                     AccessSessionID = table.Column<long>(type: "bigint", nullable: false),
-                    ActivityTypeKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false),
-                    MethodKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false),
+                    ActivityTypeKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
+                    MethodKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
                     OperationID = table.Column<long>(type: "bigint", nullable: false),
                     StartAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     EndAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
@@ -74,14 +74,14 @@ namespace Phaneritic.Implementations.Migrations.Ledgering
                 {
                     ActivityID = table.Column<long>(type: "bigint", nullable: false),
                     EntryIndex = table.Column<int>(type: "int", nullable: false),
-                    ExceptionName = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
-                    Message = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
+                    ExceptionName = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
+                    Message = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
                     StackTrace = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AccessorID = table.Column<int>(type: "int", nullable: false),
                     AccessMechanismID = table.Column<int>(type: "int", nullable: false),
                     AccessSessionID = table.Column<long>(type: "bigint", nullable: false),
-                    ActivityTypeKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false),
-                    MethodKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false),
+                    ActivityTypeKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
+                    MethodKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
                     OperationID = table.Column<long>(type: "bigint", nullable: false),
                     RecordedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     OffsetMicroSeconds = table.Column<long>(type: "bigint", nullable: false),
@@ -106,13 +106,13 @@ namespace Phaneritic.Implementations.Migrations.Ledgering
                 {
                     ActivityID = table.Column<long>(type: "bigint", nullable: false),
                     EntryIndex = table.Column<int>(type: "int", nullable: false),
-                    InfoEntryKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false),
-                    InfoEntryValue = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
+                    InfoEntryKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
+                    InfoEntryValue = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
                     AccessorID = table.Column<int>(type: "int", nullable: false),
                     AccessMechanismID = table.Column<int>(type: "int", nullable: false),
                     AccessSessionID = table.Column<long>(type: "bigint", nullable: false),
-                    ActivityTypeKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false),
-                    MethodKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false),
+                    ActivityTypeKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
+                    MethodKey = table.Column<string>(type: "varchar(16)", unicode: false, maxLength: 16, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
                     OperationID = table.Column<long>(type: "bigint", nullable: false),
                     RecordedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     OffsetMicroSeconds = table.Column<long>(type: "bigint", nullable: false),

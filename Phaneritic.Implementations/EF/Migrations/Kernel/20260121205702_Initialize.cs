@@ -19,7 +19,7 @@ namespace Phaneritic.Implementations.EF.Migrations.Kernel
                 schema: "krnl",
                 columns: table => new
                 {
-                    TableKey = table.Column<string>(type: "varchar(64)", unicode: false, maxLength: 64, nullable: false),
+                    TableKey = table.Column<string>(type: "varchar(64)", unicode: false, maxLength: 64, nullable: false, collation: "SQL_Latin1_General_CP1_CI_AS"),
                     LastUpdate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     ConcurrencyCheck = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
                 },

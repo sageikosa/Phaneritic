@@ -4,6 +4,6 @@ using Phaneritic.Interfaces.Database;
 namespace Phaneritic.Implementations.Database;
 public class DbLoggingConnection(
     IOptionsSnapshot<DatabaseOptions> options
-    ) : BaseDbConnection(options.Value.LoggingConnectString), IDbLoggingConnection
+    ) : BaseDbConnection(options.Value.LoggingConnectString, options.Value.CaseInsensitiveCollation, options.Value.CaseSensitiveCollation), IDbLoggingConnection
 {
 }

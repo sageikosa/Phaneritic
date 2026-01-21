@@ -4,4 +4,6 @@ namespace Phaneritic.Interfaces.Database;
 public interface IBaseDbConnection : IDisposable
 {
     DbConnection Connection { get; }
+    string CaseInsensitiveCollation { get; }
+    string CaseSensitiveCollation { get; }
 }

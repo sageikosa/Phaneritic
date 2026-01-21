@@ -45,6 +45,13 @@ public abstract class BaseDbContext(
     {
         foreach (var _conf in configurators)
         {
+            if (_conf is IPropertyCollation _propColl)
+            {
+                // stitch collation from connection into property configurator
+                _propColl.Collation = _propColl.IsCaseSensitive
+                    ? connection.CaseSensitiveCollation
+                    : connection.CaseInsensitiveCollation;
+            }
             _conf.ConfigureProperties(configurationBuilder);
         }
         configurationBuilder.Properties<decimal>().HavePrecision(18, 4);

@@ -23,26 +23,26 @@ CREATE SEQUENCE [op].[OperationID] START WITH 100000 INCREMENT BY 100 NO CYCLE;
 CREATE SEQUENCE [op].[OperationLogID] START WITH 100000 INCREMENT BY 100 NO CYCLE;
 
 CREATE TABLE [op].[AccessGroups] (
-    [AccessGroupKey] varchar(32) NOT NULL,
-    [Description] nvarchar(256) NOT NULL,
+    [AccessGroupKey] varchar(32) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+    [Description] nvarchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
     CONSTRAINT [PK_AccessGroups] PRIMARY KEY ([AccessGroupKey])
 );
 
 CREATE TABLE [op].[AccessorCredentialTypes] (
-    [AccessorCredentialTypeKey] varchar(8) NOT NULL,
-    [Description] nvarchar(256) NOT NULL,
+    [AccessorCredentialTypeKey] varchar(8) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+    [Description] nvarchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
     CONSTRAINT [PK_AccessorCredentialTypes] PRIMARY KEY ([AccessorCredentialTypeKey])
 );
 
 CREATE TABLE [op].[AccessorTypes] (
-    [AccessorTypeKey] varchar(16) NOT NULL,
-    [Description] nvarchar(256) NOT NULL,
+    [AccessorTypeKey] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+    [Description] nvarchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
     CONSTRAINT [PK_AccessorTypes] PRIMARY KEY ([AccessorTypeKey])
 );
 
 CREATE TABLE [op].[Methods] (
-    [MethodKey] varchar(16) NOT NULL,
-    [Description] nvarchar(256) NOT NULL,
+    [MethodKey] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+    [Description] nvarchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
     [IsTransient] bit NOT NULL,
     [StayWithAccessMechanism] bit NOT NULL,
     [StayWithAccessor] bit NOT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE [op].[OperationLogs] (
     [OperationLogID] bigint NOT NULL,
     [AccessSessionID] bigint NOT NULL,
     [OperationID] bigint NULL,
-    [MethodKey] varchar(16) NULL,
+    [MethodKey] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
     [LogTime] datetimeoffset NOT NULL,
     [AccessMechanismID] int NOT NULL,
     [AccessorID] int NOT NULL,
@@ -62,81 +62,81 @@ CREATE TABLE [op].[OperationLogs] (
 );
 
 CREATE TABLE [op].[OptionGroups] (
-    [OptionGroupKey] varchar(16) NOT NULL,
-    [Description] nvarchar(256) NOT NULL,
+    [OptionGroupKey] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+    [Description] nvarchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
     CONSTRAINT [PK_OptionGroups] PRIMARY KEY ([OptionGroupKey])
 );
 
 CREATE TABLE [op].[OptionTypes] (
-    [OptionTypeKey] varchar(32) NOT NULL,
-    [Description] nvarchar(256) NOT NULL,
+    [OptionTypeKey] varchar(32) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+    [Description] nvarchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
     CONSTRAINT [PK_OptionTypes] PRIMARY KEY ([OptionTypeKey])
 );
 
 CREATE TABLE [op].[ProcessNodeTypes] (
-    [ProcessNodeTypeKey] varchar(16) NOT NULL,
-    [Description] nvarchar(256) NOT NULL,
+    [ProcessNodeTypeKey] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+    [Description] nvarchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
     CONSTRAINT [PK_ProcessNodeTypes] PRIMARY KEY ([ProcessNodeTypeKey])
 );
 
 CREATE TABLE [op].[Accessors] (
     [AccessorID] int NOT NULL,
-    [AccessorKey] varchar(64) NOT NULL,
-    [Description] nvarchar(256) NOT NULL,
-    [AccessorTypeKey] varchar(16) NOT NULL,
+    [AccessorKey] varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+    [Description] nvarchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+    [AccessorTypeKey] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
     CONSTRAINT [PK_Accessors] PRIMARY KEY ([AccessorID]),
     CONSTRAINT [FK_Accessors_AccessorTypes_AccessorTypeKey] FOREIGN KEY ([AccessorTypeKey]) REFERENCES [op].[AccessorTypes] ([AccessorTypeKey]) ON DELETE CASCADE
 );
 
 CREATE TABLE [op].[AccessorTypeAccessorCredentialTypes] (
-    [AccessorTypeKey] varchar(16) NOT NULL,
-    [AccessorCredentialTypeKey] varchar(8) NOT NULL,
+    [AccessorTypeKey] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+    [AccessorCredentialTypeKey] varchar(8) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
     CONSTRAINT [PK_AccessorTypeAccessorCredentialTypes] PRIMARY KEY ([AccessorTypeKey], [AccessorCredentialTypeKey]),
     CONSTRAINT [FK_AccessorTypeAccessorCredentialTypes_AccessorCredentialTypes_AccessorCredentialTypeKey] FOREIGN KEY ([AccessorCredentialTypeKey]) REFERENCES [op].[AccessorCredentialTypes] ([AccessorCredentialTypeKey]) ON DELETE CASCADE,
     CONSTRAINT [FK_AccessorTypeAccessorCredentialTypes_AccessorTypes_AccessorTypeKey] FOREIGN KEY ([AccessorTypeKey]) REFERENCES [op].[AccessorTypes] ([AccessorTypeKey]) ON DELETE CASCADE
 );
 
 CREATE TABLE [op].[AccessGroupMethods] (
-    [AccessGroupKey] varchar(32) NOT NULL,
-    [MethodKey] varchar(16) NOT NULL,
+    [AccessGroupKey] varchar(32) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+    [MethodKey] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
     CONSTRAINT [PK_AccessGroupMethods] PRIMARY KEY ([AccessGroupKey], [MethodKey]),
     CONSTRAINT [FK_AccessGroupMethods_AccessGroups_AccessGroupKey] FOREIGN KEY ([AccessGroupKey]) REFERENCES [op].[AccessGroups] ([AccessGroupKey]) ON DELETE CASCADE,
     CONSTRAINT [FK_AccessGroupMethods_Methods_MethodKey] FOREIGN KEY ([MethodKey]) REFERENCES [op].[Methods] ([MethodKey]) ON DELETE CASCADE
 );
 
 CREATE TABLE [op].[OptionGroupOptionTypes] (
-    [OptionGroupKey] varchar(16) NOT NULL,
-    [OptionTypeKey] varchar(32) NOT NULL,
+    [OptionGroupKey] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+    [OptionTypeKey] varchar(32) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
     CONSTRAINT [PK_OptionGroupOptionTypes] PRIMARY KEY ([OptionGroupKey], [OptionTypeKey]),
     CONSTRAINT [FK_OptionGroupOptionTypes_OptionGroups_OptionGroupKey] FOREIGN KEY ([OptionGroupKey]) REFERENCES [op].[OptionGroups] ([OptionGroupKey]) ON DELETE CASCADE,
     CONSTRAINT [FK_OptionGroupOptionTypes_OptionTypes_OptionTypeKey] FOREIGN KEY ([OptionTypeKey]) REFERENCES [op].[OptionTypes] ([OptionTypeKey]) ON DELETE CASCADE
 );
 
 CREATE TABLE [op].[AccessMechanismTypes] (
-    [AccessMechanismTypeKey] varchar(16) NOT NULL,
-    [Description] nvarchar(256) NOT NULL,
+    [AccessMechanismTypeKey] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+    [Description] nvarchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
     [IsUserAccess] bit NOT NULL,
     [IsRoamingAccess] bit NOT NULL,
     [IsPoolable] bit NOT NULL,
     [IsValidatedIPAddress] bit NOT NULL,
-    [ProcessNodeTypeKey] varchar(16) NULL,
+    [ProcessNodeTypeKey] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
     CONSTRAINT [PK_AccessMechanismTypes] PRIMARY KEY ([AccessMechanismTypeKey]),
     CONSTRAINT [FK_AccessMechanismTypes_ProcessNodeTypes_ProcessNodeTypeKey] FOREIGN KEY ([ProcessNodeTypeKey]) REFERENCES [op].[ProcessNodeTypes] ([ProcessNodeTypeKey])
 );
 
 CREATE TABLE [op].[ProcessNodes] (
-    [ProcessNodeKey] varchar(32) NOT NULL,
-    [Description] nvarchar(256) NOT NULL,
-    [ProcessNodeTypeKey] varchar(16) NOT NULL,
-    [ParentNodeKey] varchar(32) NULL,
+    [ProcessNodeKey] varchar(32) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+    [Description] nvarchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+    [ProcessNodeTypeKey] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+    [ParentNodeKey] varchar(32) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
     CONSTRAINT [PK_ProcessNodes] PRIMARY KEY ([ProcessNodeKey]),
     CONSTRAINT [FK_ProcessNodes_ProcessNodeTypes_ProcessNodeTypeKey] FOREIGN KEY ([ProcessNodeTypeKey]) REFERENCES [op].[ProcessNodeTypes] ([ProcessNodeTypeKey]) ON DELETE CASCADE,
     CONSTRAINT [FK_ProcessNodes_ProcessNodes_ParentNodeKey] FOREIGN KEY ([ParentNodeKey]) REFERENCES [op].[ProcessNodes] ([ProcessNodeKey])
 );
 
 CREATE TABLE [op].[ProcessNodeTypeOptionGroups] (
-    [ProcessNodeTypeKey] varchar(16) NOT NULL,
-    [OptionGroupKey] varchar(16) NOT NULL,
+    [ProcessNodeTypeKey] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+    [OptionGroupKey] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
     CONSTRAINT [PK_ProcessNodeTypeOptionGroups] PRIMARY KEY ([ProcessNodeTypeKey], [OptionGroupKey]),
     CONSTRAINT [FK_ProcessNodeTypeOptionGroups_OptionGroups_OptionGroupKey] FOREIGN KEY ([OptionGroupKey]) REFERENCES [op].[OptionGroups] ([OptionGroupKey]) ON DELETE CASCADE,
     CONSTRAINT [FK_ProcessNodeTypeOptionGroups_ProcessNodeTypes_ProcessNodeTypeKey] FOREIGN KEY ([ProcessNodeTypeKey]) REFERENCES [op].[ProcessNodeTypes] ([ProcessNodeTypeKey]) ON DELETE CASCADE
@@ -144,7 +144,7 @@ CREATE TABLE [op].[ProcessNodeTypeOptionGroups] (
 
 CREATE TABLE [op].[AccessorAccessGroups] (
     [AccessorID] int NOT NULL,
-    [AccessGroupKey] varchar(32) NOT NULL,
+    [AccessGroupKey] varchar(32) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
     CONSTRAINT [PK_AccessorAccessGroups] PRIMARY KEY ([AccessorID], [AccessGroupKey]),
     CONSTRAINT [FK_AccessorAccessGroups_AccessGroups_AccessGroupKey] FOREIGN KEY ([AccessGroupKey]) REFERENCES [op].[AccessGroups] ([AccessGroupKey]) ON DELETE CASCADE,
     CONSTRAINT [FK_AccessorAccessGroups_Accessors_AccessorID] FOREIGN KEY ([AccessorID]) REFERENCES [op].[Accessors] ([AccessorID]) ON DELETE CASCADE
@@ -152,8 +152,8 @@ CREATE TABLE [op].[AccessorAccessGroups] (
 
 CREATE TABLE [op].[AccessorCredentials] (
     [AccessorID] int NOT NULL,
-    [AccessorCredentialTypeKey] varchar(8) NOT NULL,
-    [CredentialValue] nvarchar(512) NOT NULL,
+    [AccessorCredentialTypeKey] varchar(8) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+    [CredentialValue] nvarchar(512) COLLATE SQL_Latin1_General_CP1_CS_AS NOT NULL,
     [IsEnabled] bit NOT NULL,
     CONSTRAINT [PK_AccessorCredentials] PRIMARY KEY ([AccessorID], [AccessorCredentialTypeKey]),
     CONSTRAINT [FK_AccessorCredentials_AccessorCredentialTypes_AccessorCredentialTypeKey] FOREIGN KEY ([AccessorCredentialTypeKey]) REFERENCES [op].[AccessorCredentialTypes] ([AccessorCredentialTypeKey]) ON DELETE CASCADE,
@@ -161,16 +161,16 @@ CREATE TABLE [op].[AccessorCredentials] (
 );
 
 CREATE TABLE [op].[AccessorTypeAccessMechanismTypes] (
-    [AccessorTypeKey] varchar(16) NOT NULL,
-    [AccessMechanismTypeKey] varchar(16) NOT NULL,
+    [AccessorTypeKey] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+    [AccessMechanismTypeKey] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
     CONSTRAINT [PK_AccessorTypeAccessMechanismTypes] PRIMARY KEY ([AccessorTypeKey], [AccessMechanismTypeKey]),
     CONSTRAINT [FK_AccessorTypeAccessMechanismTypes_AccessMechanismTypes_AccessMechanismTypeKey] FOREIGN KEY ([AccessMechanismTypeKey]) REFERENCES [op].[AccessMechanismTypes] ([AccessMechanismTypeKey]) ON DELETE CASCADE,
     CONSTRAINT [FK_AccessorTypeAccessMechanismTypes_AccessorTypes_AccessorTypeKey] FOREIGN KEY ([AccessorTypeKey]) REFERENCES [op].[AccessorTypes] ([AccessorTypeKey]) ON DELETE CASCADE
 );
 
 CREATE TABLE [op].[MethodAccessMechanismTypes] (
-    [MethodKey] varchar(16) NOT NULL,
-    [AccessMechanismTypeKey] varchar(16) NOT NULL,
+    [MethodKey] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+    [AccessMechanismTypeKey] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
     CONSTRAINT [PK_MethodAccessMechanismTypes] PRIMARY KEY ([MethodKey], [AccessMechanismTypeKey]),
     CONSTRAINT [FK_MethodAccessMechanismTypes_AccessMechanismTypes_AccessMechanismTypeKey] FOREIGN KEY ([AccessMechanismTypeKey]) REFERENCES [op].[AccessMechanismTypes] ([AccessMechanismTypeKey]) ON DELETE CASCADE,
     CONSTRAINT [FK_MethodAccessMechanismTypes_Methods_MethodKey] FOREIGN KEY ([MethodKey]) REFERENCES [op].[Methods] ([MethodKey]) ON DELETE CASCADE
@@ -178,20 +178,20 @@ CREATE TABLE [op].[MethodAccessMechanismTypes] (
 
 CREATE TABLE [op].[AccessMechanisms] (
     [AccessMechanismID] int NOT NULL,
-    [AccessMechanismKey] varchar(64) NOT NULL,
-    [Description] nvarchar(256) NOT NULL,
-    [ProcessNodeKey] varchar(32) NULL,
+    [AccessMechanismKey] varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+    [Description] nvarchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+    [ProcessNodeKey] varchar(32) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
     [IsEnabled] bit NOT NULL,
-    [AccessMechanismTypeKey] varchar(16) NOT NULL,
+    [AccessMechanismTypeKey] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
     CONSTRAINT [PK_AccessMechanisms] PRIMARY KEY ([AccessMechanismID]),
     CONSTRAINT [FK_AccessMechanisms_AccessMechanismTypes_AccessMechanismTypeKey] FOREIGN KEY ([AccessMechanismTypeKey]) REFERENCES [op].[AccessMechanismTypes] ([AccessMechanismTypeKey]) ON DELETE CASCADE,
     CONSTRAINT [FK_AccessMechanisms_ProcessNodes_ProcessNodeKey] FOREIGN KEY ([ProcessNodeKey]) REFERENCES [op].[ProcessNodes] ([ProcessNodeKey])
 );
 
 CREATE TABLE [op].[Options] (
-    [ProcessNodeKey] varchar(32) NOT NULL,
-    [OptionTypeKey] varchar(32) NOT NULL,
-    [OptionValue] nvarchar(256) NOT NULL,
+    [ProcessNodeKey] varchar(32) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+    [OptionTypeKey] varchar(32) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+    [OptionValue] nvarchar(256) COLLATE SQL_Latin1_General_CP1_CS_AS NOT NULL,
     CONSTRAINT [PK_Options] PRIMARY KEY ([ProcessNodeKey], [OptionTypeKey]),
     CONSTRAINT [FK_Options_ProcessNodes_ProcessNodeKey] FOREIGN KEY ([ProcessNodeKey]) REFERENCES [op].[ProcessNodes] ([ProcessNodeKey]) ON DELETE CASCADE
 );
@@ -209,7 +209,7 @@ CREATE TABLE [op].[AccessSessions] (
 CREATE TABLE [op].[Operations] (
     [OperationID] bigint NOT NULL,
     [AccessSessionID] bigint NOT NULL,
-    [MethodKey] varchar(16) NOT NULL,
+    [MethodKey] varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
     [StartedAt] datetimeoffset NOT NULL,
     [AccessMechanismID] int NOT NULL,
     [AccessorID] int NOT NULL,
@@ -267,7 +267,7 @@ CREATE INDEX [IX_ProcessNodes_ProcessNodeTypeKey] ON [op].[ProcessNodes] ([Proce
 CREATE INDEX [IX_ProcessNodeTypeOptionGroups_OptionGroupKey] ON [op].[ProcessNodeTypeOptionGroups] ([OptionGroupKey]);
 
 INSERT INTO [op].[__MigrationsHistory] ([MigrationId], [ProductVersion])
-VALUES (N'20260106185553_Initialize', N'10.0.0');
+VALUES (N'20260121205705_Initialize', N'10.0.2');
 
 COMMIT;
 GO
