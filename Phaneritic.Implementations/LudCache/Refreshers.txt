@@ -5,16 +5,3 @@ Phaneritic.Implementations.LudCache
 ImplementationsRefreshers
 
 # entity|suffix|context|(DbSet-name)|[include[,include]]
-# operational
-ProcessNodeType|Key|IOperationalContext|ProcessNodeTypes|OptionGroups,OperationalStates
-ProcessNode|Key|IOperationalContext|ProcessNodes|Options
-OptionType|Key|IOperationalContext|OptionTypes|OptionGroups
-OptionGroup|Key|IOperationalContext|OptionGroups|OptionTypes
-AccessGroup|Key|IOperationalContext|AccessGroups|Methods
-Method|Key|IOperationalContext|Methods|AccessMechanismTypes
-AccessMechanismType|Key|IOperationalContext|AccessMechanismTypes|
-AccessMechanism|Key|IOperationalContext|AccessMechanisms|
-AccessMechanism|ID|IOperationalContext|AccessMechanisms|
-
-# ledgering
-ActivityType|Key|ILedgeringContext|ActivityTypes|

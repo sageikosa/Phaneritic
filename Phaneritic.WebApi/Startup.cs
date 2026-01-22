@@ -17,10 +17,6 @@ public class Startup(
         services.ConfigureKernel(Configuration);
         services.AddPhaneriticKernel();
 
-        // implementations
-        services.AddOperational();
-        services.AddLedgering();
-
         // JWT Authentication
         var jwtKey = Configuration["Jwt:Key"] ?? string.Empty;
         var jwtIssuer = Configuration["Jwt:Issuer"];

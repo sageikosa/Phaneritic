@@ -1,27 +1,16 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Phaneritic.Implementations.Commands.Ledgering;
-using Phaneritic.Implementations.Commands.Operational;
 using Phaneritic.Implementations.CommitWork;
 using Phaneritic.Implementations.Database;
-using Phaneritic.Implementations.DtoPack.Ledgering;
-using Phaneritic.Implementations.DtoPack.Operational;
 using Phaneritic.Implementations.EF.TableCache;
 using Phaneritic.Implementations.LudCache;
-using Phaneritic.Implementations.Models.Ledgering;
-using Phaneritic.Implementations.Models.Operational;
-using Phaneritic.Implementations.Operational;
-using Phaneritic.Implementations.Queries.Operational;
 using Phaneritic.Implementations.Sempahores;
 using Phaneritic.Implementations.Startup;
 using Phaneritic.Interfaces;
 using Phaneritic.Interfaces.CommitWork;
 using Phaneritic.Interfaces.Database;
-using Phaneritic.Interfaces.Ledgering;
 using Phaneritic.Interfaces.LudCache;
-using Phaneritic.Interfaces.Operational;
-using System.Net.NetworkInformation;
 
 namespace Phaneritic.Implementations;
 
@@ -72,74 +61,10 @@ public static class KernelDependencies
         services.AddKernelIDsConfigurators();
         services.AddKernelKeysConfigurators();
 
-        // operational and ledgering property configurators
-        services.AddOperationalIDsConfigurators();
-        services.AddOperationalLongIDsConfigurators();
-        services.AddLedgeringIDsConfigurators();
-        services.AddOperationalKeysConfigurators();
-        services.AddOperationalUnicodeKeysConfigurators();
-        services.AddLedgeringKeysConfigurators();
-        services.AddLedgeringUnicodeKeysConfigurators();
-
         // cache refreshers
         services.AddImplementationsRefreshers();
         services.AddHostedService<LudCacheFreshnessPoller>();
 
-        return services;
-    }
-
-    public static IServiceCollection AddOperational(this IServiceCollection services)
-    {
-        services.AddScoped<IOperationalContext, OperationalContext>();
-        services.AddSingleton<IPackRecord<ProcessNode, ProcessNodeDto>, ProcessNodeDtoPack>();
-        services.AddSingleton<IPackRecord<ProcessNodeType, ProcessNodeTypeDto>, ProcessNodeTypeDtoPack>();
-        services.AddSingleton<IPackRecord<OptionGroup, OptionGroupDto>, OptionGroupDtoPack>();
-        services.AddSingleton<IPackRecord<OptionType, OptionTypeDto>, OptionTypeDtoPack>();
-        services.AddSingleton<IPackRecord<Option, OptionDto>, OptionDtoPack>();
-
-        services.AddSingleton<IPackRecord<Method, MethodDto>, MethodDtoPack>();
-        services.AddSingleton<IPackRecord<AccessGroup, AccessGroupDto>, AccessGroupDtoPack>();
-        services.AddSingleton<IPackRecord<Accessor, AccessorDto>, AccessorDtoPack>();
-        services.AddSingleton<IPackRecord<AccessorCredential, AccessorCredentialDto>, AccessorCredentialDtoPack>();
-        services.AddSingleton<IPackRecord<AccessorCredentialType, AccessorCredentialTypeDto>, AccessorCredentialTypeDtoPack>();
-        services.AddSingleton<IPackRecord<AccessorType, AccessorTypeDto>, AccessorTypeDtoPack>();
-        services.AddSingleton<IPackRecord<AccessMechanism, AccessMechanismDto>, AccessMechanismDtoPack>();
-        services.AddSingleton<IPackRecord<AccessMechanismType, AccessMechanismTypeDto>, AccessMechanismTypeDtoPack>();
-
-        services.AddScoped<IAccessorReader, AccessorReader>();
-        services.AddScoped<IAccessMechanismReader, AccessMechanismReader>();
-        services.AddScoped<IAccessSessionReader, AccessSessionReader>();
-        services.AddScoped<IOperationReader, OperationReader>();
-
-        services.AddSingleton<IProcessNodesNavigator, ProcessNodesNavigator>();
-        services.AddSingleton<IOptionsNavigator, OptionsNavigator>();
-        services.AddScoped<ILudCacheFreshnessNotify, OptionCacheRefresher>();
-
-        services.AddScoped<IExplicitActivity, ExplicitActivity>();
-        services.AddScoped<IProvideAccessMechanism, ProvideAccessMechanism>();
-        services.AddScoped<IProvideAccessMechanism, ProvideExplicitAccessMechanism>();
-
-        services.AddScoped<IProvideAccessSession, ProvideExplicitAccessSession>();
-        services.AddScoped<IProvideAccessSession, ProvideCachedAccessSession>();
-        services.AddScoped<IProvideAccessSession, ProvideUserAccessSession>();
-        services.AddScoped<IProvideScopedOperations, ProvideScopedDeviceOperations>();
-        services.AddScoped<IProvideScopedOperations, ProvideScopedUserOperations>();
-        services.AddScoped<IManageAccessSession, ManageUserAccessSession>();
-        services.AddScoped<IManageAccessSession, ManageDeviceAccessSession>();
-        services.AddScoped<IManageOperation, ManageUserOperation>();
-        services.AddScoped<IManageOperation, ManageDeviceOperation>();
-        services.AddScoped<IScopeIsolateActivity, ScopeIsolateActivity>();
-        return services;
-    }
-
-    public static IServiceCollection AddLedgering(this IServiceCollection services)
-    {
-        services.AddScoped<ILedgeringContext, LedgeringContext>();
-        services.AddSingleton<IPackRecord<Activity, ActivityDto>, ActivityDtoPack>();
-        services.AddSingleton<IPackRecord<ActivityType, ActivityTypeDto>, ActivityTypeDtoPack>();
-        services.AddSingleton<IPackRecord<InfoEntry, InfoEntryDto>, InfoEntryDtoPack>();
-        services.AddSingleton<IPackRecord<ExceptionEntry, ExceptionEntryDto>, ExceptionEntryDtoPack>();
-        services.AddScoped<ILedgerScribbler, LedgerScribbler>();
         return services;
     }
 }

@@ -26,11 +26,7 @@ var _cache = _data.Skip(2).Select(_s => _s.Split('|')).Select(_a => new { Name =
 // -------------------------------------
 using Phaneritic.Interfaces;
 using Phaneritic.Interfaces.LudCache;
-using Phaneritic.Interfaces.Operational;
-using Phaneritic.Interfaces.Ledgering;
 // TODO: add more here
-using Phaneritic.Implementations.Models.Operational;
-using Phaneritic.Implementations.Models.Ledgering;
 // TODO: add more here
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

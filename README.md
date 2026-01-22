@@ -10,7 +10,8 @@ By publicizing it, I am hoping its structures will be visible to the unaided dev
 Also, since almost all my code has been hidden under corporate ground for most of my career, this intrusion demonstrates that there have been forces at work which could not be seen.
 
 ## Updates
-2026-01-21: added support for case-sensitive and case-insensitive collations to permeate to DB
+- **2026-01-21**: added support for case-sensitive and case-insensitive collations to permeate to DB
+- **2026-01-22**: removed operational and ledgering code; I don't want to go through generalization and extensibility support at this time
 
 ## Major Feature Areas
 The following lists the major features areas in terse summary form.  
@@ -24,8 +25,6 @@ The first two I'd previously isolated and made some repositories to explain the 
 - Entity to Dto Packing
 - Configuration and slow-changing code-available data caching
 - Startup seeding for host builder type applications
-
-As a late addition, I added some of the operational services and logging services I use in my Warehouse Operations System code, but I've omitted the ledgering tables, relations and entities for inventory, demands, fulfillment and movement tracking, since they're specific to warehouse intralogistics.
 
 ## Database Connection Injection
 Phaneritic supports two database connection types, the main transactional [work connection](https://github.com/sageikosa/Phaneritic/blob/main/Phaneritic.Implementations/Database/DbScopedConnection.cs) and a [logging connection](https://github.com/sageikosa/Phaneritic/blob/main/Phaneritic.Implementations/Database/DbLoggingConnection.cs).

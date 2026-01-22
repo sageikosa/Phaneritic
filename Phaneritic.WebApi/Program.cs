@@ -40,8 +40,6 @@ if (_app.Environment.IsDevelopment())
 }
 
 _app.UseHttpsRedirection();
-_app.UseMiddleware<LedgerCloserMiddleware>();
-_app.UseMiddleware<ErrorCatchMiddleware>();
 _app.UseAuthentication();
 _app.UseAuthorization();
 
