@@ -6,11 +6,11 @@ using Phaneritic.Implementations.Database;
 using Phaneritic.Implementations.EF.TableCache;
 using Phaneritic.Implementations.LudCache;
 using Phaneritic.Implementations.Sempahores;
-using Phaneritic.Implementations.Startup;
 using Phaneritic.Interfaces;
 using Phaneritic.Interfaces.CommitWork;
 using Phaneritic.Interfaces.Database;
 using Phaneritic.Interfaces.LudCache;
+using Phaneritic.Interfaces.Startup;
 
 namespace Phaneritic.Implementations;
 

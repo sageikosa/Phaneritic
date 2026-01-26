@@ -1,4 +1,4 @@
-﻿namespace Phaneritic.Implementations.Startup;
+﻿namespace Phaneritic.Interfaces.Startup;
 
 public interface IKickStart
 {
