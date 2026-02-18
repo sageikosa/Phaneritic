@@ -18,7 +18,7 @@ namespace Phaneritic.Implementations.EF.Migrations.Kernel
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("krnl")
-                .HasAnnotation("ProductVersion", "10.0.2")
+                .HasAnnotation("ProductVersion", "10.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);

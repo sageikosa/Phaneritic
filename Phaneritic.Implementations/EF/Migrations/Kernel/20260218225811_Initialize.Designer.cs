@@ -12,7 +12,7 @@ using Phaneritic.Implementations.EF.TableCache;
 namespace Phaneritic.Implementations.EF.Migrations.Kernel
 {
     [DbContext(typeof(TableFreshnessContext))]
-    [Migration("20260217003855_Initialize")]
+    [Migration("20260218225811_Initialize")]
     partial class Initialize
     {
         /// <inheritdoc />
@@ -21,7 +21,7 @@ namespace Phaneritic.Implementations.EF.Migrations.Kernel
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("krnl")
-                .HasAnnotation("ProductVersion", "10.0.2")
+                .HasAnnotation("ProductVersion", "10.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
