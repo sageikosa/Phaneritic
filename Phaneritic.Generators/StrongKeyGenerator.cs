@@ -146,11 +146,6 @@ public class StrongKeyGenerator : IIncrementalGenerator
             builder.AppendLine(@"            => StringComparer.OrdinalIgnoreCase.GetHashCode(KeyVal);");
         }
         builder.AppendLine();
-        builder.Append(@"        public static implicit operator string(");
-        builder.Append(name);
-        builder.AppendLine(@" strong)");
-        builder.AppendLine(@"            => strong.KeyVal;");
-        builder.AppendLine();
         builder.AppendLine(@"        public override bool Equals(object? obj)");
         builder.Append(@"            => obj is ");
         builder.Append(name);
