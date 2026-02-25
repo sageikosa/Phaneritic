@@ -44,6 +44,14 @@ public class BaseLudDictionary<TKey, TLud>(
             .OfType<TLud>()];
     }
 
+    public List<TLud> Get(FrozenSet<TKey> keys)
+    {
+        var _c = _Cache;
+        return [..keys
+            .Select(_k => _c.TryGetValue(_k, out var _l) ? _l : null)
+            .OfType<TLud>()];
+    }
+
     public List<TLud> All()
     {
         var _c = _Cache;

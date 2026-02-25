@@ -1,4 +1,6 @@
-﻿namespace Phaneritic.Interfaces.LudCache;
+﻿using System.Collections.Frozen;
+
+namespace Phaneritic.Interfaces.LudCache;
 public interface ILudDictionary<TKey, TLud>
     where TKey : struct, IEquatable<TKey>
     where TLud : class, IEquatable<TLud>, ILudCacheable<TKey>
@@ -43,6 +45,14 @@ public interface ILudDictionary<TKey, TLud>
     /// Returns empty list if none found.
     /// </remarks>
     List<TLud> Get(HashSet<TKey> keys);
+
+    /// <summary>
+    /// Get all items matching any key in the set.
+    /// </summary>
+    /// <remarks>
+    /// Returns empty list if none found.
+    /// </remarks>
+    List<TLud> Get(FrozenSet<TKey> keys);
 
     /// <summary>
     /// Get all items
