@@ -166,7 +166,7 @@ public class StrongKeyGenerator : IIncrementalGenerator
         builder.AppendLine(@"            => !(left == right);");
         builder.AppendLine();
         builder.AppendLine(@"        public override string ToString()");
-        builder.AppendLine(@"            => $@""{{ {nameof(KeyVal)} = """"{KeyVal}"""" }}"";");
+        builder.AppendLine(@"            => KeyVal;");
         builder.AppendLine(@"    }");
     }
 
