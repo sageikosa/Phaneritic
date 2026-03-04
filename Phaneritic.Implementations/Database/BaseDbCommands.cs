@@ -12,20 +12,23 @@ public abstract class BaseDbCommands(
     ILogger<IBaseDbCommands> logger
         ) : IBaseDbCommands
 {
-    protected readonly List<SqlCommand> SqlCommands = [];
+    protected readonly List<(SqlCommand cmd, int priority)> SqlCommands = [];
     protected readonly IBaseDbConnection Connection = connection;
     protected readonly ILogger<IBaseDbCommands> Logger = logger;
 
-    public DbCommand AddDbCommand(string sqlText)
+    public DbCommand AddDbCommand(string sqlText, int? priority = null)
     {
         var _cmd = new SqlCommand(sqlText, Connection.Connection as SqlConnection);
-        SqlCommands.Add(_cmd);
+
+        // use natural add-order priority unless explicitly provided
+        int _priority = priority ?? SqlCommands.Count;
+        SqlCommands.Add((_cmd, _priority));
         return _cmd;
     }
 
     public void ClearDbCommands()
     {
-        foreach (var _cmd in SqlCommands)
+        foreach (var (_cmd, _) in SqlCommands)
         {
             _cmd.Dispose();
         }
@@ -57,9 +60,10 @@ public abstract class BaseDbCommands(
             Connection.Connection.Open();
         }
 
+        // run each command in priority order
         var _frequency = Stopwatch.Frequency;
         var _stopWatch = Stopwatch.StartNew();
-        foreach (var _cmd in SqlCommands)
+        foreach (var (_cmd, _priority) in SqlCommands.OrderBy(_c => _c.priority))
         {
             _stopWatch.Restart();
             var _count = _cmd.ExecuteNonQuery();
