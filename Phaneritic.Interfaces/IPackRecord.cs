@@ -12,9 +12,19 @@ public interface IPackRecord<in TModel, TDto>
     public IEnumerable<TDto> GetDtos(IEnumerable<TModel> models)
         => models.Select(x => Pack(x)).OfType<TDto>();
 
+    /// <summary>
+    /// pack as a frozen set
+    /// </summary>
+    /// <remarks>if null passed in, an empty frozen set is returned</remarks>
     public FrozenSet<TDto> GetFrozenSet(IEnumerable<TModel>? models)
         => models == null
         ? []
         : models.Select(x => Pack(x)).OfType<TDto>().ToFrozenSet();
+
+    public FrozenDictionary<TKey, TDto> GetFrozenDictionary<TKey>(IEnumerable<TModel>? models, Func<TDto, TKey> keySelector)
+        where TKey : struct, IEquatable<TKey>
+        => GetDtos(models ?? [])
+        .ToDictionary(keySelector)
+        .ToFrozenDictionary();
 }
 
