@@ -33,6 +33,9 @@ public class BaseLudDictionary<TKey, TLud>(
         return _c.Values.FirstOrDefault(searchFor);
     }
 
+    public IEnumerable<TLud> FindAll(Func<TLud, bool> searchFor)
+        => _Cache.Values.Where(searchFor);
+
     public TLud? Get(TKey? key)
         => _Cache.TryGetValue(key ?? default, out var _return) ? _return : null;
 

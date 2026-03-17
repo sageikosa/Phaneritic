@@ -39,6 +39,11 @@ public interface ILudDictionary<TKey, TLud>
     TLud? Find(Func<TLud, bool> searchFor);
 
     /// <summary>
+    /// Find and return all items matching the predicate
+    /// </summary>
+    IEnumerable<TLud> FindAll(Func<TLud, bool> searchFor);
+
+    /// <summary>
     /// Get all items matching any key in the set. 
     /// </summary>
     /// <remarks>
