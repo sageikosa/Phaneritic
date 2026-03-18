@@ -39,6 +39,9 @@ public class BaseLudDictionary<TKey, TLud>(
     public TLud? Get(TKey? key)
         => _Cache.TryGetValue(key ?? default, out var _return) ? _return : null;
 
+    public TLud GetRequired(TKey? key)
+        => Get(key) ?? throw new ArgumentException($@"key [{key ?? default}] not found", nameof(key));
+
     public List<TLud> Get(HashSet<TKey> keys)
     {
         var _c = _Cache;

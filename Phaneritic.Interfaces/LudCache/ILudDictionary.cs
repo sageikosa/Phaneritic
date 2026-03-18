@@ -33,6 +33,9 @@ public interface ILudDictionary<TKey, TLud>
     /// </summary>
     TLud? Get(TKey? key);
 
+    /// <summary>Get a single item by key, or throw an exception</summary>
+    TLud GetRequired(TKey? key);
+
     /// <summary>
     /// Find and return the first item matching the predicate
     /// </summary>
