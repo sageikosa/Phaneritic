@@ -25,6 +25,9 @@ public sealed class IndexedCriticalSection<TKey, TBarrier> : IDisposable
         _Barriers.StartingUse();
     }
 
+    public bool HasPassed(TKey gateID)
+        => _Entered.Contains(gateID);
+
     public bool TryEnter(TKey index, int waitMilli, CancellationToken cancellationToken)
     {
         if (!_Entered.Contains(index))
@@ -71,6 +74,38 @@ public sealed class IndexedCriticalSection<TKey, TBarrier> : IDisposable
         return true;
     }
 
+    public bool TryEnter(HashSet<TKey> indexes, int waitMilli)
+    {
+        // NOTE: consider asyncing this?
+
+        // only check those that haven't been entered yet
+        var _keys = indexes.Where(_g => !_Entered.Contains(_g))
+            .Distinct()
+            .ToHashSet();
+        if (_keys.Count != 0)
+        {
+            // make checks for all keys
+            var _checks = (from _g in _keys
+                           select Task.Run(() => TryEnter(_g, waitMilli)))
+                          .ToArray();
+
+            // all must pass
+            Task.WaitAll(_checks);
+            var _success = _checks.All(_t => _t.Result);
+
+            if (!_success)
+            {
+                // didn't all succeed, re-open gates
+                foreach (var _k in _keys)
+                {
+                    TryLeave(_k);
+                }
+            }
+            return _success;
+        }
+        return true;
+    }
+
     public void TryLeave(TKey index)
     {
         if (_Entered.Remove(index))
@@ -93,6 +128,26 @@ public sealed class IndexedCriticalSection<TKey, TBarrier> : IDisposable
                     return new TBarrier();
                 });
             return !(_blocker?.InUse() ?? true);
+        }
+        return true;
+    }
+
+    public bool AreEnterable(HashSet<TKey> indexes)
+    {
+        // only check those that haven't been entered yet
+        var _keys = indexes.Where(_g => !_Entered.Contains(_g))
+            .Distinct()
+            .ToHashSet();
+        if (_keys.Count != 0)
+        {
+            // make checks for all keys
+            var _checks = (from _g in _keys
+                           select Task.Run(() => IsEnterable(_g)))
+                          .ToArray();
+
+            // all must pass
+            Task.WaitAll(_checks);
+            return _checks.All(_t => _t.Result);
         }
         return true;
     }
