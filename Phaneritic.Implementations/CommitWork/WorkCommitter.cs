@@ -129,7 +129,7 @@ public class WorkCommitter(
                 var _span = _timer.Elapsed;
                 if (Logger.IsEnabled(LogLevel.Information))
                 {
-                    Logger.LogInformation(@"CommitWorks={count} in MS={duration}=(1000*{ticks}/{frequency}) ",
+                    Logger.LogInformation(@"ContributeWorks={count} in MS={duration}=(1000*{ticks}/{frequency}) ",
                         contributors.Count, 1000 * (decimal)_span.Ticks / _ticksPerSecond, _span.Ticks, _ticksPerSecond);
                 }
             }
