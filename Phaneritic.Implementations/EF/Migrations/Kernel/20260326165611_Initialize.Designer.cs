@@ -12,7 +12,7 @@ using Phaneritic.Implementations.EF.TableCache;
 namespace Phaneritic.Implementations.EF.Migrations.Kernel
 {
     [DbContext(typeof(TableFreshnessContext))]
-    [Migration("20260325153322_Initialize")]
+    [Migration("20260326165611_Initialize")]
     partial class Initialize
     {
         /// <inheritdoc />
