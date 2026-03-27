@@ -16,8 +16,8 @@ public class BaseLudDictionary<TKey, TLud>(
         return [.. _c.Keys.Select(_k => _k)];
     }
 
-    public bool HasKey(TKey key)
-        => _Cache.ContainsKey(key);
+    public bool HasKey(TKey? key)
+        => key.HasValue && _Cache.ContainsKey(key ?? default);
 
     public void SetValues(IDictionary<TKey, TLud> dictionary)
     {

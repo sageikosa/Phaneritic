@@ -13,7 +13,7 @@ public interface ILudDictionary<TKey, TLud>
     /// <summary>
     /// True if this dictionary is tracking the specified key.
     /// </summary>
-    bool HasKey(TKey key);
+    bool HasKey(TKey? key);
 
     /// <summary>
     /// Called internally by refresher to set a new dictionary
