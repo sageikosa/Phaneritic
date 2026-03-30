@@ -30,21 +30,27 @@ public class WorkCommitter(
                 {
                     // scope marker for transaction "using"
                     {
-                        var _contributors = new List<IContributeWork>();
                         using var _scope = new TransactionScope(TransactionScopeOption.Required,
                                 new TransactionOptions
                                 {
                                     IsolationLevel = options.Value.IsolationLevel,
                                     Timeout = TransactionManager.DefaultTimeout
                                 });
-                        foreach (var _contrib in contributors)
-                        {
-                            // unique commits
-                            if (!_contributors.Contains(_contrib))
-                            {
-                                _contributors.Add(_contrib);
 
-                                // make copies for this sweep
+                        // duplicate block list
+                        var _track = new List<IContributeWork>();
+
+                        // processing
+                        var _contributors = new Queue<IContributeWork>(contributors);
+                        while (_contributors.TryDequeue(out var _contrib))
+                        {
+                            // block duplication commits
+                            if (!_track.Contains(_contrib))
+                            {
+                                // by tracking, we block multiple attempts to get in here
+                                _track.Add(_contrib);
+
+                                // contribute work and get all things that spun out of it
                                 var _outbound = _contrib
                                     .ContributeWork()
                                     .Distinct()
@@ -52,14 +58,17 @@ public class WorkCommitter(
                                     .ToList();
                                 if (_outbound.Count != 0)
                                 {
+                                    // enqueue each thing that spun out
                                     foreach (var _nc in _outbound)
                                     {
                                         if (Logger.IsEnabled(LogLevel.Information))
                                         {
                                             Logger.LogInformation(@"nested contributor '{name}'", _nc.GetType().FullName);
                                         }
+
+                                        // duplicate checks after dequeue will block updates from a contributor more than once
+                                        _contributors.Enqueue(_nc);
                                     }
-                                    _contributors.AddRange(_outbound);
                                 }
 
                                 var _time = _timer.Elapsed;
