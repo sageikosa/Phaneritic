@@ -114,6 +114,21 @@ public sealed class IndexedCriticalSection<TKey, TBarrier> : IDisposable
         }
     }
 
+    public void TryLeave(HashSet<TKey> indexes)
+    {
+        // only check those that have been entered
+        var _keys = indexes.Where(_g => _Entered.Contains(_g))
+            .Distinct()
+            .ToHashSet();
+        if (_keys.Count != 0)
+        {
+            foreach (var _k in _keys)
+            {
+                TryLeave(_k);
+            }
+        }
+    }
+
     public bool IsEnterable(TKey index)
     {
         if (!_Entered.Contains(index))
