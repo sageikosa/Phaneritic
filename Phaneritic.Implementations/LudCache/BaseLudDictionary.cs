@@ -2,6 +2,7 @@
 using System.Collections.Frozen;
 
 namespace Phaneritic.Implementations.LudCache;
+
 public class BaseLudDictionary<TKey, TLud>(
     ) : ILudDictionary<TKey, TLud>
     where TKey : struct, IEquatable<TKey>
@@ -27,14 +28,14 @@ public class BaseLudDictionary<TKey, TLud>(
 
     public long RefreshCycle => _Generation;
 
-    public TLud? Find(Func<TLud, bool> searchFor)
+    public TLud? Find(Predicate<TLud> searchFor)
     {
         var _c = _Cache;
-        return _c.Values.FirstOrDefault(searchFor);
+        return _c.Values.FirstOrDefault(x => searchFor(x));
     }
 
-    public IEnumerable<TLud> FindAll(Func<TLud, bool> searchFor)
-        => _Cache.Values.Where(searchFor);
+    public IEnumerable<TLud> FindAll(Predicate<TLud> searchFor)
+        => _Cache.Values.Where(x => searchFor(x));
 
     public TLud? Get(TKey? key)
         => _Cache.TryGetValue(key ?? default, out var _return) ? _return : null;

@@ -39,12 +39,12 @@ public interface ILudDictionary<TKey, TLud>
     /// <summary>
     /// Find and return the first item matching the predicate
     /// </summary>
-    TLud? Find(Func<TLud, bool> searchFor);
+    TLud? Find(Predicate<TLud> searchFor);
 
     /// <summary>
     /// Find and return all items matching the predicate
     /// </summary>
-    IEnumerable<TLud> FindAll(Func<TLud, bool> searchFor);
+    IEnumerable<TLud> FindAll(Predicate<TLud> searchFor);
 
     /// <summary>
     /// Get all items matching any key in the set. 
