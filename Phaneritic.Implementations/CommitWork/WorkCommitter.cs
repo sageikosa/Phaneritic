@@ -91,13 +91,19 @@ public class WorkCommitter(
 
                     // transaction complete above
                     {
-                        var _afterWork = new List<IContributeWork>();
-                        foreach (var _contrib in contributors)
+                        // duplicate block list
+                        var _track = new List<IContributeWork>();
+
+                        var _afterWork = new Queue<IContributeWork>(contributors);
+                        while (_afterWork.TryDequeue(out var _contrib))
                         {
                             // unique after work calls
-                            if (!_afterWork.Contains(_contrib))
+                            if (!_track.Contains(_contrib))
                             {
-                                _afterWork.Add(_contrib);
+                                // by tracking, we block multiple attempts to get in here
+                                _track.Add(_contrib);
+
+                                // after work contribs
                                 var outbound = _contrib
                                     .ContributeAfterWork()
                                     .Distinct()
@@ -105,14 +111,15 @@ public class WorkCommitter(
                                     .ToList();
                                 if (outbound.Count != 0)
                                 {
+                                    // enqueue each thing that spun out
                                     foreach (var _y in outbound)
                                     {
                                         if (Logger.IsEnabled(LogLevel.Information))
                                         {
                                             Logger.LogInformation(@"nested after contributor '{name}'", _y.GetType().FullName);
                                         }
+                                        _afterWork.Enqueue(_y);
                                     }
-                                    _afterWork.AddRange(outbound);
                                 }
 
                                 var _offset = _timer.Elapsed;
