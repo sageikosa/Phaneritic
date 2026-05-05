@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Phaneritic.Interfaces.Database;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace Phaneritic.Implementations.Database;
 
@@ -16,7 +17,7 @@ public class SqlErrorRetry(
 {
     private readonly HashSet<int> _ErrNums = [3960, 1205];
 
-    public void ErrorWrap(Action action)
+    public async Task ErrorWrap(Func<Task> action, CancellationToken cancellationToken)
     {
         var _max = options.Value.DbRetryMax;
         var _delay = options.Value.DbRetryDelayMilliseconds;
@@ -26,11 +27,11 @@ public class SqlErrorRetry(
         var _timer = Stopwatch.StartNew();
         try
         {
-            while (!_processed)
+            while (!_processed && !cancellationToken.IsCancellationRequested)
             {
                 try
                 {
-                    action?.Invoke();
+                    await action.Invoke();
                     _processed = true;
                 }
                 catch (SqlException _sqlEx)
@@ -40,7 +41,7 @@ public class SqlErrorRetry(
                     var _span = _timer.Elapsed;
                     logger.LogWarning(@"error count={tries} at milliseconds={duration}=(1000*{ticks}/{frequency})", _tries,
                         1000 * (decimal)_span.Ticks / _ticksPerSecond, _span.Ticks, _ticksPerSecond);
-                    Task.Delay(_delay).Wait();
+                   await Task.Delay(_delay, cancellationToken);
                 }
             }
         }
