@@ -8,7 +8,7 @@ public interface IContributeWork
     /// <remarks>
     /// May be an empty set.
     /// </remarks>
-    IEnumerable<IContributeWork> ContributeWork(CancellationToken cancellationToken);
+    IEnumerable<IContributeWork> ContributeWork();
 
     /// <summary>
     /// Implement this method to return additional methods to be called after the transaction is committed.
@@ -16,5 +16,5 @@ public interface IContributeWork
     /// <remarks>
     /// May be an empty set.
     /// </remarks>
-    IEnumerable<IContributeWork> ContributeAfterWork(CancellationToken cancellationToken);
+    IEnumerable<IContributeWork> ContributeAfterWork();
 }
