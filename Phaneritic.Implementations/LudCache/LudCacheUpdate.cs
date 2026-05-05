@@ -1,6 +1,7 @@
 ﻿using Phaneritic.Implementations.EF.TableCache;
 using Phaneritic.Interfaces.CommitWork;
 using Phaneritic.Interfaces.LudCache;
+using System.Runtime.CompilerServices;
 
 namespace Phaneritic.Implementations.LudCache;
 
@@ -37,15 +38,17 @@ public class LudCacheUpdate<TRefresh>(
         }
     }
 
-    public IEnumerable<IContributeWork> ContributeWork()
+    public async IAsyncEnumerable<IContributeWork> ContributeWork(
+        [EnumeratorCancellation] CancellationToken cancellationToken)
     {
         yield return Context;
         yield break;
     }
 
-    public IEnumerable<IContributeWork> ContributeAfterWork()
+    public async IAsyncEnumerable<IContributeWork> ContributeAfterWork(
+        [EnumeratorCancellation] CancellationToken cancellationToken)
     {
-        RefreshAll.RefreshAll(new CancellationTokenSource().Token);
+        RefreshAll.RefreshAll(cancellationToken);
         yield return Context;
         yield break;
     }

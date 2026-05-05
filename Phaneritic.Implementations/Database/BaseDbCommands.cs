@@ -4,6 +4,7 @@ using Phaneritic.Interfaces.CommitWork;
 using Phaneritic.Interfaces.Database;
 using System.Data.Common;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace Phaneritic.Implementations.Database;
 
@@ -41,7 +42,8 @@ public abstract class BaseDbCommands(
         GC.SuppressFinalize(this);
     }
 
-    public IEnumerable<IContributeWork> ContributeAfterWork()
+    public async IAsyncEnumerable<IContributeWork> ContributeAfterWork(
+        [EnumeratorCancellation] CancellationToken cancellationToken)
     {
         ClearDbCommands();
 
@@ -49,7 +51,8 @@ public abstract class BaseDbCommands(
         yield break;
     }
 
-    public IEnumerable<IContributeWork> ContributeWork()
+    public async IAsyncEnumerable<IContributeWork> ContributeWork(
+        [EnumeratorCancellation] CancellationToken cancellationToken)
     {
         // assuming no need to close
         var _mustClose = false;

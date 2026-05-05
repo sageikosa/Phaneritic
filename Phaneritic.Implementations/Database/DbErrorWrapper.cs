@@ -4,13 +4,13 @@ namespace Phaneritic.Implementations.Database;
 
 public static class DbErrorWrapper
 {
-    public static void DoErrorWrap(this IList<IDbErrorWrap> wrappers, Action action)
+    public static async Task DoErrorWrap(this IList<IDbErrorWrap> wrappers, Func<Task> action, CancellationToken cancellationToken)
     {
         // forward declare
-        Action<int> _invoker = (depth) => { };
+        Func<int, Task> _invoker = async (depth) => { await Task.CompletedTask; };
 
         // self-referential call needed forward declare
-        _invoker = (depth) =>
+        _invoker = async (depth) =>
         {
             if (depth < 0)
             {
@@ -19,11 +19,15 @@ public static class DbErrorWrapper
             }
             else
             {
-                wrappers[depth]?.ErrorWrap(() => _invoker(depth - 1));
+                var _wrap = wrappers[depth];
+                if (_wrap != null)
+                {
+                    await _wrap.ErrorWrap(async () => await _invoker(depth - 1), cancellationToken);
+                }
             }
         };
 
         // kick off recursioning
-        _invoker((wrappers?.Count ?? 0) - 1);
+        await _invoker((wrappers?.Count ?? 0) - 1);
     }
 }

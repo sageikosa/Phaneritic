@@ -17,7 +17,7 @@ public class WorkCommitter(
     protected readonly IList<IDbErrorWrap> Wrappers = [.. wrappers];
     protected readonly ILogger<IWorkCommitter> Logger = logger;
 
-    public void CommitWork(params List<IContributeWork> contributors)
+    public async Task CommitWork(CancellationToken cancellationToken, params List<IContributeWork> contributors)
     {
         if (contributors.Count != 0)
         {
@@ -26,7 +26,7 @@ public class WorkCommitter(
             try
             {
                 // go through all wrappers using extension method on list
-                Wrappers.DoErrorWrap(() =>
+                await Wrappers.DoErrorWrap(async () =>
                 {
                     // scope marker for transaction "using"
                     {
@@ -51,11 +51,11 @@ public class WorkCommitter(
                                 _track.Add(_contrib);
 
                                 // contribute work and get all things that spun out of it
-                                var _outbound = _contrib
-                                    .ContributeWork()
+                                var _outbound = await _contrib
+                                    .ContributeWork(cancellationToken)
                                     .Distinct()
                                     .Where(_c => !_contributors.Contains(_c))
-                                    .ToList();
+                                    .ToListAsync(cancellationToken);
                                 if (_outbound.Count != 0)
                                 {
                                     // enqueue each thing that spun out
@@ -104,11 +104,11 @@ public class WorkCommitter(
                                 _track.Add(_contrib);
 
                                 // after work contribs
-                                var outbound = _contrib
-                                    .ContributeAfterWork()
+                                var outbound = await _contrib
+                                    .ContributeAfterWork(cancellationToken)
                                     .Distinct()
                                     .Where(_c => !_afterWork.Contains(_c))
-                                    .ToList();
+                                    .ToListAsync(cancellationToken);
                                 if (outbound.Count != 0)
                                 {
                                     // enqueue each thing that spun out
@@ -138,7 +138,7 @@ public class WorkCommitter(
                                 _afterWork.Count, 1000 * (decimal)_time.Ticks / _ticksPerSecond, _time.Ticks, _ticksPerSecond);
                         }
                     }
-                });
+                }, cancellationToken);
             }
             finally
             {

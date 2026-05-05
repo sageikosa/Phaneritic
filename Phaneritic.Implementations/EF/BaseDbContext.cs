@@ -4,6 +4,7 @@ using Phaneritic.Implementations.Database;
 using Phaneritic.Interfaces;
 using Phaneritic.Interfaces.CommitWork;
 using Phaneritic.Interfaces.Database;
+using System.Runtime.CompilerServices;
 
 namespace Phaneritic.Implementations.EF;
 public abstract class BaseDbContext(
@@ -59,13 +60,15 @@ public abstract class BaseDbContext(
         base.ConfigureConventions(configurationBuilder);
     }
 
-    public virtual IEnumerable<IContributeWork> ContributeWork()
+    public async IAsyncEnumerable<IContributeWork> ContributeWork(
+        [EnumeratorCancellation] CancellationToken cancellationToken)
     {
-        SaveChanges(false);
+        await SaveChangesAsync(false, cancellationToken);
         yield break;
     }
 
-    public virtual IEnumerable<IContributeWork> ContributeAfterWork()
+    public async IAsyncEnumerable<IContributeWork> ContributeAfterWork(
+        [EnumeratorCancellation] CancellationToken cancellationToken)
     {
         ChangeTracker.AcceptAllChanges();
         yield break;

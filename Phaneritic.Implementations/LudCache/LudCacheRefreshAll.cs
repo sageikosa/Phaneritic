@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Phaneritic.Implementations.EF.TableCache;
 using Phaneritic.Interfaces;
 using Phaneritic.Interfaces.CommitWork;
@@ -25,12 +26,12 @@ public class LudCacheRefreshAll(
         .Where(_g => _g != default)
         .ToDictionary(_g => _g.Key, _g => _g.ToList());
 
-    public void RefreshAll(CancellationToken stoppingToken)
+    public async Task RefreshAll(CancellationToken stoppingToken)
     {
         var _actualWork = false;
-        var _fromDatabase = tableFreshnessContext.TableFreshnesses
+        var _fromDatabase = await tableFreshnessContext.TableFreshnesses
             .Select(_f => _f)
-            .ToDictionary(_f => _f.TableKey);
+            .ToDictionaryAsync(_f => _f.TableKey, stoppingToken);
         var _gatherNotifiers = new List<ILudCacheFreshnessNotify>();
         foreach (var _cached in Refreshers)
         {
@@ -71,15 +72,17 @@ public class LudCacheRefreshAll(
                         _cached.Refresh();
 
                         // update shared freshness
-                        var _fresh = tableFreshnessContext.TableFreshnesses.Find(_cached.RefresherKey);
+                        var _fresh = await tableFreshnessContext.TableFreshnesses.FindAsync(
+                            [_cached.RefresherKey], cancellationToken: stoppingToken);
                         if (_fresh == null)
                         {
-                            tableFreshnessContext.TableFreshnesses.Add(new TableFreshness
-                            {
-                                TableKey = _cached.RefresherKey,
-                                ConcurrencyCheck = [],
-                                LastUpdate = DateTimeOffset.Now
-                            });
+                            await tableFreshnessContext.TableFreshnesses.AddAsync(
+                                new TableFreshness
+                                {
+                                    TableKey = _cached.RefresherKey,
+                                    ConcurrencyCheck = [],
+                                    LastUpdate = DateTimeOffset.Now
+                                }, stoppingToken);
                         }
 
                         // notify gather
@@ -102,7 +105,7 @@ public class LudCacheRefreshAll(
                 .Concat([tableFreshnessContext])
                 .ToList();
 
-            workCommitter.CommitWork(_notifyWork);
+            await workCommitter.CommitWork(stoppingToken, _notifyWork);
         }
         else
         {
