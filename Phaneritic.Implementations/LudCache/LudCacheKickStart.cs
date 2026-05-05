@@ -11,8 +11,7 @@ public class LudCacheKickStart(
 
     public bool Startup()
     {
-        var _source = new CancellationTokenSource();
-        RefreshAll.RefreshAll(_source.Token);
+        RefreshAll.RefreshAll();
         return true;
     }
 }

@@ -60,15 +60,13 @@ public abstract class BaseDbContext(
         base.ConfigureConventions(configurationBuilder);
     }
 
-    public async IAsyncEnumerable<IContributeWork> ContributeWork(
-        [EnumeratorCancellation] CancellationToken cancellationToken)
+    public IEnumerable<IContributeWork> ContributeWork()
     {
-        await SaveChangesAsync(false, cancellationToken);
+        SaveChanges(false);
         yield break;
     }
 
-    public async IAsyncEnumerable<IContributeWork> ContributeAfterWork(
-        [EnumeratorCancellation] CancellationToken cancellationToken)
+    public IEnumerable<IContributeWork> ContributeAfterWork()
     {
         ChangeTracker.AcceptAllChanges();
         yield break;

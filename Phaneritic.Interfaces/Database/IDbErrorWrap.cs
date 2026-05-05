@@ -2,5 +2,5 @@
 
 public interface IDbErrorWrap
 {
-    Task ErrorWrap(Func<Task> action, CancellationToken cancellationToken);
+    void ErrorWrap(Action action);
 }

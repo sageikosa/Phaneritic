@@ -38,17 +38,15 @@ public class LudCacheUpdate<TRefresh>(
         }
     }
 
-    public async IAsyncEnumerable<IContributeWork> ContributeWork(
-        [EnumeratorCancellation] CancellationToken cancellationToken)
+    public IEnumerable<IContributeWork> ContributeWork()
     {
         yield return Context;
         yield break;
     }
 
-    public async IAsyncEnumerable<IContributeWork> ContributeAfterWork(
-        [EnumeratorCancellation] CancellationToken cancellationToken)
+    public IEnumerable<IContributeWork> ContributeAfterWork()
     {
-        RefreshAll.RefreshAll(cancellationToken);
+        RefreshAll.RefreshAll();
         yield return Context;
         yield break;
     }

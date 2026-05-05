@@ -17,7 +17,7 @@ public class SqlErrorRetry(
 {
     private readonly HashSet<int> _ErrNums = [3960, 1205];
 
-    public async Task ErrorWrap(Func<Task> action, CancellationToken cancellationToken)
+    public void ErrorWrap(Action action)
     {
         var _max = options.Value.DbRetryMax;
         var _delay = options.Value.DbRetryDelayMilliseconds;
@@ -27,11 +27,11 @@ public class SqlErrorRetry(
         var _timer = Stopwatch.StartNew();
         try
         {
-            while (!_processed && !cancellationToken.IsCancellationRequested)
+            while (!_processed)
             {
                 try
                 {
-                    await action.Invoke();
+                    action.Invoke();
                     _processed = true;
                 }
                 catch (SqlException _sqlEx)
@@ -41,7 +41,7 @@ public class SqlErrorRetry(
                     var _span = _timer.Elapsed;
                     logger.LogWarning(@"error count={tries} at milliseconds={duration}=(1000*{ticks}/{frequency})", _tries,
                         1000 * (decimal)_span.Ticks / _ticksPerSecond, _span.Ticks, _ticksPerSecond);
-                   await Task.Delay(_delay, cancellationToken);
+                   Task.Delay(_delay).Wait();
                 }
             }
         }

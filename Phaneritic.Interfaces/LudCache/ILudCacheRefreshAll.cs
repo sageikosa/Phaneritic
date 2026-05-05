@@ -5,5 +5,5 @@ public interface ILudCacheRefreshAll
     /// <summary>
     /// Runs through all registered refreshers and calls Refresh if needed (unitialized or server freshness date is newer)
     /// </summary>
-    Task RefreshAll(CancellationToken stoppingToken);
+    void RefreshAll();
 }

@@ -18,7 +18,7 @@ public class LudCacheFreshnessPoller(
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                DoRefresh(stoppingToken);
+                DoRefresh();
                 await Task.Delay(IntervalDelay * 1000, stoppingToken);
             }
         }
@@ -28,12 +28,12 @@ public class LudCacheFreshnessPoller(
         }
     }
 
-    private void DoRefresh(CancellationToken stoppingToken)
+    private void DoRefresh()
     {
         try
         {
             using var _scope = services.CreateScope();
-            _scope.ServiceProvider.GetRequiredService<ILudCacheRefreshAll>()?.RefreshAll(stoppingToken);
+            _scope.ServiceProvider.GetRequiredService<ILudCacheRefreshAll>()?.RefreshAll();
         }
         catch (Exception ex)
         {

@@ -42,8 +42,7 @@ public abstract class BaseDbCommands(
         GC.SuppressFinalize(this);
     }
 
-    public async IAsyncEnumerable<IContributeWork> ContributeAfterWork(
-        [EnumeratorCancellation] CancellationToken cancellationToken)
+    public IEnumerable<IContributeWork> ContributeAfterWork()
     {
         ClearDbCommands();
 
@@ -51,8 +50,7 @@ public abstract class BaseDbCommands(
         yield break;
     }
 
-    public async IAsyncEnumerable<IContributeWork> ContributeWork(
-        [EnumeratorCancellation] CancellationToken cancellationToken)
+    public IEnumerable<IContributeWork> ContributeWork()
     {
         // assuming no need to close
         var _mustClose = false;

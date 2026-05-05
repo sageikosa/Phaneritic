@@ -8,5 +8,5 @@ public interface IWorkCommitter
     /// <remarks>
     /// Recursively processes each item in the list, both for committal and after committal.
     /// </remarks>
-    Task CommitWork(CancellationToken cancellationToken, params List<IContributeWork> commitWorks);
+    void CommitWork(params List<IContributeWork> commitWorks);
 }

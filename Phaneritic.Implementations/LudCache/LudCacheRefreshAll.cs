@@ -26,17 +26,15 @@ public class LudCacheRefreshAll(
         .Where(_g => _g != default)
         .ToDictionary(_g => _g.Key, _g => _g.ToList());
 
-    public async Task RefreshAll(CancellationToken stoppingToken)
+    public void RefreshAll()
     {
         var _actualWork = false;
-        var _fromDatabase = await tableFreshnessContext.TableFreshnesses
+        var _fromDatabase = tableFreshnessContext.TableFreshnesses
             .Select(_f => _f)
-            .ToDictionaryAsync(_f => _f.TableKey, stoppingToken);
+            .ToDictionary(_f => _f.TableKey);
         var _gatherNotifiers = new List<ILudCacheFreshnessNotify>();
         foreach (var _cached in Refreshers)
         {
-            if (!stoppingToken.IsCancellationRequested)
-            {
                 if (_fromDatabase.TryGetValue(_cached.RefresherKey, out var _db))
                 {
                     if (ludCacheFreshness.IsRefreshNeeded(_cached.RefresherKey, _db.LastUpdate))
@@ -72,17 +70,16 @@ public class LudCacheRefreshAll(
                         _cached.Refresh();
 
                         // update shared freshness
-                        var _fresh = await tableFreshnessContext.TableFreshnesses.FindAsync(
-                            [_cached.RefresherKey], cancellationToken: stoppingToken);
+                        var _fresh = tableFreshnessContext.TableFreshnesses.Find(_cached.RefresherKey);
                         if (_fresh == null)
                         {
-                            await tableFreshnessContext.TableFreshnesses.AddAsync(
+                            tableFreshnessContext.TableFreshnesses.Add(
                                 new TableFreshness
                                 {
                                     TableKey = _cached.RefresherKey,
                                     ConcurrencyCheck = [],
                                     LastUpdate = DateTimeOffset.Now
-                                }, stoppingToken);
+                                });
                         }
 
                         // notify gather
@@ -93,7 +90,6 @@ public class LudCacheRefreshAll(
                         }
                     }
                 }
-            }
         }
 
         // commit
@@ -105,7 +101,7 @@ public class LudCacheRefreshAll(
                 .Concat([tableFreshnessContext])
                 .ToList();
 
-            await workCommitter.CommitWork(stoppingToken, _notifyWork);
+            workCommitter.CommitWork(_notifyWork);
         }
         else
         {
