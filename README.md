@@ -10,8 +10,15 @@ By publicizing it, I am hoping its structures will be visible to the unaided dev
 Also, since almost all my code has been hidden under corporate ground for most of my career, this intrusion demonstrates that there have been forces at work which could not be seen.
 
 ## Updates
-- **2026-01-21**: added support for case-sensitive and case-insensitive collations to permeate to DB
+- **2026-05**: dabbled with more async code, but reverted it
+- **2026-03-23**: improved index critical section to make working with multiple required sections easier
+- **2026-03-18**: LudDictionary GetRequired method (throws exception if not found)
+- **2026-03-17**: LudDictionary FindAll
+- **2026-03-03**: simplified StrongKey .ToString()
+- **2026-02-24**: removed implicit string conversion for StrongKey generator, as it made to strongly-typed strings comparable, which is unwanted behavior
+- **2026-01-26**: moved IKickStart stuff to interfaces project/assembly to make it easier to implement
 - **2026-01-22**: removed operational and ledgering code; I don't want to go through generalization and extensibility support at this time
+- **2026-01-21**: added support for case-sensitive and case-insensitive collations to permeate to DB
 
 ## Major Feature Areas
 The following lists the major features areas in terse summary form.  
