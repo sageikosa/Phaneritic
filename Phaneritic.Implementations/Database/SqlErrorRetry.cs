@@ -3,7 +3,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Phaneritic.Interfaces.Database;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
 
 namespace Phaneritic.Implementations.Database;
 
@@ -15,7 +14,12 @@ public class SqlErrorRetry(
     ILogger<SqlErrorRetry> logger
         ) : IDbErrorWrap
 {
-    private readonly HashSet<int> _ErrNums = [3960, 1205];
+    /// <summary>
+    /// <para>3960: Snapshot isolation transaction aborted due to update conflict</para>
+    /// <para>1205: Transaction deadlocked</para>
+    /// <para>2627: Violation of constraint (most likely a PK insertion from a MERGE?)</para>
+    /// </summary>
+    private readonly HashSet<int> _ErrNums = [3960, 1205, 2627];
 
     public void ErrorWrap(Action action)
     {
@@ -41,7 +45,12 @@ public class SqlErrorRetry(
                     var _span = _timer.Elapsed;
                     logger.LogWarning(@"error count={tries} at milliseconds={duration}=(1000*{ticks}/{frequency})", _tries,
                         1000 * (decimal)_span.Ticks / _ticksPerSecond, _span.Ticks, _ticksPerSecond);
-                   Task.Delay(_delay).Wait();
+                    Task.Delay(_delay).Wait();
+                }
+                catch (SqlException _sqlEx)
+                    when (_ErrNums.Contains(_sqlEx.ErrorCode))
+                {
+                    throw new DbConflictException(_sqlEx.ErrorCode, @"save conflicts on potentially replayable scope action", _sqlEx);
                 }
             }
         }
