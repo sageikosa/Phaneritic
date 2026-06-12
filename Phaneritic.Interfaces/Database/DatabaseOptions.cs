@@ -12,6 +12,8 @@ public class DatabaseOptions
     /// <summary>Max retries on failure, Default = 3</summary>
     public int DbRetryMax { get; set; } = 3;
 
+    public int LongRunningDbCommandMillisecondsWarning { get; set; } = 1000;
+
     /// <summary>Default = IsolationLevel.ReadCommitted</summary>
     public IsolationLevel IsolationLevel { get; set; } = IsolationLevel.ReadCommitted;
 

@@ -1,20 +1,22 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Phaneritic.Interfaces.CommitWork;
 using Phaneritic.Interfaces.Database;
 using System.Data.Common;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
 
 namespace Phaneritic.Implementations.Database;
 
 public abstract class BaseDbCommands(
     IBaseDbConnection connection,
+    IOptionsSnapshot<DatabaseOptions> dbOptions,
     ILogger<IBaseDbCommands> logger
         ) : IBaseDbCommands
 {
     protected readonly List<(SqlCommand cmd, int priority)> SqlCommands = [];
     protected readonly IBaseDbConnection Connection = connection;
+    protected readonly IOptionsSnapshot<DatabaseOptions> DbOptions = dbOptions;
     protected readonly ILogger<IBaseDbCommands> Logger = logger;
 
     public DbCommand AddDbCommand(string sqlText, int? priority = null)
@@ -68,11 +70,25 @@ public abstract class BaseDbCommands(
         {
             _stopWatch.Restart();
             var _count = _cmd.ExecuteNonQuery();
-            var _span = _stopWatch.Elapsed;
-            if (Logger.IsEnabled(LogLevel.Information))
+            if (Logger.IsEnabled(LogLevel.Information) || Logger.IsEnabled(LogLevel.Warning))
             {
-                Logger.LogInformation(@"Records={count} in MS={duration}=(1000*{ticks}/{frequency}) for SQL: ""{sql}""",
-                    _count, 1000 * (decimal)_span.Ticks / _frequency, _span.Ticks, _frequency, _cmd.CommandText);
+                var _span = _stopWatch.Elapsed;
+                var _ms = 1000 * (decimal)_span.Ticks / _frequency;
+                if (Logger.IsEnabled(LogLevel.Warning))
+                {
+                    // in warning mode, record commands at or over 1s in duration
+                    if (_ms >= DbOptions.Value.LongRunningDbCommandMillisecondsWarning)
+                    {
+                        Logger.LogWarning(@"Records={count} in MS={duration}=(1000*{ticks}/{frequency}) for SQL: ""{sql}""",
+                            _count, _ms, _span.Ticks, _frequency, _cmd.CommandText);
+                    }
+                }
+                else if (Logger.IsEnabled(LogLevel.Information))
+                {
+                    // in Info mode, record everything
+                    Logger.LogInformation(@"Records={count} in MS={duration}=(1000*{ticks}/{frequency}) for SQL: ""{sql}""",
+                        _count, _ms, _span.Ticks, _frequency, _cmd.CommandText);
+                }
             }
         }
         _stopWatch.Stop();
