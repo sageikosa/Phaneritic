@@ -52,6 +52,16 @@ public class SqlErrorRetry(
                 {
                     throw new DbConflictException(_sqlEx.ErrorCode, @"save conflicts on potentially replayable scope action", _sqlEx);
                 }
+                catch (SqlException _sqlEx)
+                {
+                    logger.LogError(@"SQL Exception: code={code}", _sqlEx.ErrorCode);
+                    throw;
+                }
+                catch (Exception _exception)
+                {
+                    logger.LogError(@"exception={exception}", _exception.Message);
+                    throw;
+                }
             }
         }
         finally

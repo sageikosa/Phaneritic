@@ -20,10 +20,7 @@ public static class DbErrorWrapper
             else
             {
                 var _wrap = wrappers[depth];
-                if (_wrap != null)
-                {
-                    _wrap.ErrorWrap(() => _invoker(depth - 1));
-                }
+                _wrap?.ErrorWrap(() => _invoker(depth - 1));
             }
         };
 
