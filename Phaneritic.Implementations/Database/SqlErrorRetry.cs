@@ -57,11 +57,6 @@ public class SqlErrorRetry(
                     logger.LogError(@"SQL Exception: code={code}", _sqlEx.ErrorCode);
                     throw;
                 }
-                catch (Exception _exception)
-                {
-                    logger.LogError(@"exception={exception}", _exception.Message);
-                    throw;
-                }
             }
         }
         finally
