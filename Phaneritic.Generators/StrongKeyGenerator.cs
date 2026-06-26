@@ -92,6 +92,9 @@ public class StrongKeyGenerator : IIncrementalGenerator
             builder.AppendLine(@"    /// <para>VARCHAR storage</para>");
         }
         builder.AppendLine(@"    /// </remarks>");
+        builder.Append(@"    [JsonConverter(typeof(");
+        builder.Append(name);
+        builder.AppendLine(@"Converter))]");
         builder.Append(@"    public readonly partial struct ");
         builder.Append(name);
         builder.Append(@" : IEquatable<");
@@ -176,10 +179,76 @@ public class StrongKeyGenerator : IIncrementalGenerator
         builder.AppendLine(@"    }");
     }
 
+    private static void AddJsonConverter(string name, StringBuilder builder)
+    {
+        builder.Append(@"    public class ");
+        builder.Append(name);
+        builder.Append(@"Converter : JsonConverter<");
+        builder.Append(name);
+        builder.AppendLine(@">");
+
+        builder.AppendLine(@"    {");
+
+        // Read(...)
+        builder.Append(@"        public override ");
+        builder.Append(name);
+        builder.AppendLine(@" Read(");
+
+        builder.AppendLine(@"            ref Utf8JsonReader reader,");
+        builder.AppendLine(@"            Type typeToConvert,");
+        builder.AppendLine(@"            JsonSerializerOptions options) =>");
+
+        builder.Append(@"                new ");
+        builder.Append(name);
+        builder.AppendLine(@"(reader.GetString()!);");
+
+        builder.AppendLine();
+
+        // Write(...)
+        builder.AppendLine(@"        public override void Write(");
+        builder.AppendLine(@"            Utf8JsonWriter writer,");
+
+        builder.Append(@"            ");
+        builder.Append(name);
+        builder.AppendLine(@" strongKey,");
+
+        builder.AppendLine(@"            JsonSerializerOptions options) =>");
+        builder.AppendLine(@"                writer.WriteStringValue(strongKey.KeyVal);");
+
+        builder.AppendLine();
+
+        // ReadAsPropertyName(...)
+        builder.Append(@"        public override ");
+        builder.Append(name);
+        builder.AppendLine(@" ReadAsPropertyName(");
+
+        builder.AppendLine(@"            ref Utf8JsonReader reader,");
+        builder.AppendLine(@"            Type typeToConvert,");
+        builder.AppendLine(@"            JsonSerializerOptions options) =>");
+
+        builder.AppendLine(@"                Read(ref reader, typeToConvert, options);");
+
+        builder.AppendLine();
+
+        // WriteAsPropertyName(...)
+        builder.AppendLine(@"        public override void WriteAsPropertyName(");
+        builder.AppendLine(@"            Utf8JsonWriter writer,");
+
+        builder.Append(@"            ");
+        builder.Append(name);
+        builder.AppendLine(@" strongKey,");
+
+        builder.AppendLine(@"            JsonSerializerOptions options) =>");
+        builder.AppendLine(@"                writer.WritePropertyName(strongKey.KeyVal);");
+        builder.AppendLine(@"    }");
+    }
+
     private static string GenerateCode(StrongKeysToGenerate strongKeys)
     {
         var sb = new StringBuilder();
         sb.AppendLine(@"using Phaneritic.Interfaces;");
+        sb.AppendLine(@"using System.Text.Json;");
+        sb.AppendLine(@"using System.Text.Json.Serialization;");
         sb.AppendLine(@"using Microsoft.Extensions.DependencyInjection;");
         sb.AppendLine(@"#nullable enable");
         sb.Append(@"namespace ");
@@ -189,6 +258,11 @@ public class StrongKeyGenerator : IIncrementalGenerator
         foreach (var _key in strongKeys.Keys)
         {
             AddStrongString(_key.Item1, _key.Item2, strongKeys.IsUnicodeStorage, strongKeys.IsCaseSensitive, sb);
+        }
+
+        foreach (var _key in strongKeys.Keys)
+        {
+            AddJsonConverter(_key.Item1, sb);
         }
 
         foreach (var _key in strongKeys.Keys)
