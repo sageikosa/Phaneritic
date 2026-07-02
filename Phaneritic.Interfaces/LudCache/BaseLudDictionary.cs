@@ -1,7 +1,6 @@
-﻿using Phaneritic.Interfaces.LudCache;
-using System.Collections.Frozen;
+﻿using System.Collections.Frozen;
 
-namespace Phaneritic.Implementations.LudCache;
+namespace Phaneritic.Interfaces.LudCache;
 
 public class BaseLudDictionary<TKey, TLud>(
     ) : ILudDictionary<TKey, TLud>
