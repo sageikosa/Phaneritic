@@ -4,7 +4,6 @@ using Phaneritic.Implementations.Database;
 using Phaneritic.Interfaces;
 using Phaneritic.Interfaces.CommitWork;
 using Phaneritic.Interfaces.Database;
-using System.Runtime.CompilerServices;
 
 namespace Phaneritic.Implementations.EF;
 public abstract class BaseDbContext(

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Phaneritic.Interfaces;
+﻿namespace Phaneritic.Interfaces;
 
 public interface IPropertyCollation : IPropertyConfigurator
 {
