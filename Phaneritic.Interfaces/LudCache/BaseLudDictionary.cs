@@ -16,7 +16,7 @@ public class BaseLudDictionary<TKey, TLud>(
         return [.. _c.Keys.Select(_k => _k)];
     }
 
-    public bool HasKey(TKey? key)
+    public bool HasKey(in TKey? key)
         => key.HasValue && _Cache.ContainsKey(key ?? default);
 
     public void SetValues(IDictionary<TKey, TLud> dictionary)
@@ -36,10 +36,10 @@ public class BaseLudDictionary<TKey, TLud>(
     public IEnumerable<TLud> FindAll(Predicate<TLud> searchFor)
         => _Cache.Values.Where(x => searchFor(x));
 
-    public TLud? Get(TKey? key)
+    public TLud? Get(in TKey? key)
         => _Cache.TryGetValue(key ?? default, out var _return) ? _return : null;
 
-    public TLud GetRequired(TKey? key)
+    public TLud GetRequired(in TKey? key)
         => Get(key) ?? throw new ArgumentException($@"key [{key ?? default}] not found", nameof(key));
 
     public List<TLud> Get(HashSet<TKey> keys)

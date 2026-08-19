@@ -13,7 +13,7 @@ public interface ILudDictionary<TKey, TLud>
     /// <summary>
     /// True if this dictionary is tracking the specified key.
     /// </summary>
-    bool HasKey(TKey? key);
+    bool HasKey(in TKey? key);
 
     /// <summary>
     /// Called internally by refresher to set a new dictionary
@@ -31,10 +31,10 @@ public interface ILudDictionary<TKey, TLud>
     /// <summary>
     /// Get a single item by key
     /// </summary>
-    TLud? Get(TKey? key);
+    TLud? Get(in TKey? key);
 
     /// <summary>Get a single item by key, or throw an exception</summary>
-    TLud GetRequired(TKey? key);
+    TLud GetRequired(in TKey? key);
 
     /// <summary>
     /// Find and return the first item matching the predicate

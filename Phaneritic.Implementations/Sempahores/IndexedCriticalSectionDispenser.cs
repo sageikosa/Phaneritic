@@ -28,7 +28,7 @@ public sealed class IndexedCriticalSectionDispenser<TKey, TBarrier>
     /// <param name="key">key for the barrier</param>
     /// <param name="addValueFactory">function to generate a barrier if not found in the dictionary</param>
     /// <returns>Barrier for the key</returns>
-    public TBarrier GetOrAdd(TKey key, Func<TKey, TBarrier> addValueFactory)
+    public TBarrier GetOrAdd(in TKey key, Func<TKey, TBarrier> addValueFactory)
         => _Dictionary.GetOrAdd(key, addValueFactory);
 
     /// <summary>
@@ -36,7 +36,7 @@ public sealed class IndexedCriticalSectionDispenser<TKey, TBarrier>
     /// </summary>
     /// <param name="key">key for the barrier</param>
     /// <returns>specified barrier, or null</returns>
-    public TBarrier? TryGetValue(TKey key)
+    public TBarrier? TryGetValue(in TKey key)
         => _Dictionary.TryGetValue(key, out TBarrier? _value) ? _value : default;
 
     /// <summary>

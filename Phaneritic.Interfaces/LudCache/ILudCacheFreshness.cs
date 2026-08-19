@@ -10,15 +10,15 @@ public interface ILudCacheFreshness
     /// <summary>
     /// Get freshness for a specific refresher
     /// </summary>
-    DateTimeOffset? GetFreshness(RefresherKey tableKey);
+    DateTimeOffset? GetFreshness(in RefresherKey tableKey);
 
     /// <summary>
     /// Used by ILudCacheRefreshAll to check if a refresh is needed
     /// </summary>
-    bool IsRefreshNeeded(RefresherKey tableKey, DateTimeOffset latestDate);
+    bool IsRefreshNeeded(in RefresherKey tableKey, DateTimeOffset latestDate);
 
     /// <summary>
     /// Used by ILudCacheRefreshAll to set new freshness date
     /// </summary>
-    bool SetFreshness(RefresherKey tableKey, DateTimeOffset newDate);
+    bool SetFreshness(in RefresherKey tableKey, DateTimeOffset newDate);
 }

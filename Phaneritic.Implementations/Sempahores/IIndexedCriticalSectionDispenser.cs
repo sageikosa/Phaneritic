@@ -44,12 +44,12 @@ public interface IIndexedCriticalSectionDispenser<TKey, TBarrier>
     /// The barrier associated with the specified key. If no barrier exists, a new one is created using the value
     /// factory and returned.
     /// </returns>
-    TBarrier GetOrAdd(TKey key, Func<TKey, TBarrier> valueFactory);
+    TBarrier GetOrAdd(in TKey key, Func<TKey, TBarrier> valueFactory);
 
     /// <summary>
     /// Attempts to retrieve the barrier associated with the specified key.
     /// </summary>
     /// <param name="key">The key whose associated barrier is to be retrieved.</param>
     /// <returns>The barrier associated with the specified key if found; otherwise, null.</returns>
-    TBarrier? TryGetValue(TKey key);
+    TBarrier? TryGetValue(in TKey key);
 }

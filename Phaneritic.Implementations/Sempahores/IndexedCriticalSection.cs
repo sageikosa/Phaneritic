@@ -25,10 +25,10 @@ public sealed class IndexedCriticalSection<TKey, TBarrier> : IDisposable
         _Barriers.StartingUse();
     }
 
-    public bool HasPassed(TKey gateID)
+    public bool HasPassed(in TKey gateID)
         => _Entered.Contains(gateID);
 
-    public bool TryEnter(TKey index, int waitMilli, CancellationToken cancellationToken)
+    public bool TryEnter(in TKey index, int waitMilli, CancellationToken cancellationToken)
     {
         if (!_Entered.Contains(index))
         {
@@ -51,7 +51,7 @@ public sealed class IndexedCriticalSection<TKey, TBarrier> : IDisposable
         return true;
     }
 
-    public bool TryEnter(TKey index, int waitMilli)
+    public bool TryEnter(in TKey index, int waitMilli)
     {
         if (!_Entered.Contains(index))
         {
@@ -106,7 +106,7 @@ public sealed class IndexedCriticalSection<TKey, TBarrier> : IDisposable
         return true;
     }
 
-    public void TryLeave(TKey index)
+    public void TryLeave(in TKey index)
     {
         if (_Entered.Remove(index))
         {
@@ -129,7 +129,7 @@ public sealed class IndexedCriticalSection<TKey, TBarrier> : IDisposable
         }
     }
 
-    public bool IsEnterable(TKey index)
+    public bool IsEnterable(in TKey index)
     {
         if (!_Entered.Contains(index))
         {
