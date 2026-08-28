@@ -12,6 +12,10 @@ public interface IPackRecord<in TModel, TDto>
     public IEnumerable<TDto> GetDtos(IEnumerable<TModel> models)
         => models.Select(x => Pack(x)).OfType<TDto>();
 
+    [return: NotNullIfNotNull(nameof(models))]
+    public List<TDto>? GetOptionalDtoList(IEnumerable<TModel>? models)
+        => models?.Select(x => Pack(x)).OfType<TDto>().ToList();
+
     /// <summary>
     /// pack as a frozen set
     /// </summary>
