@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Phaneritic.Implementations.EF.TableCache;
 using Phaneritic.Interfaces;
 using Phaneritic.Interfaces.CommitWork;
