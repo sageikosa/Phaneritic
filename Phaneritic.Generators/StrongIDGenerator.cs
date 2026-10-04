@@ -65,10 +65,82 @@ public class StrongIDGenerator : IIncrementalGenerator
         }
     }
 
+    private static void AddJsonConverter(string name, string integralTypeName, StringBuilder builder)
+    {
+        builder.Append(@"    public class ");
+        builder.Append(name);
+        builder.Append(@"Converter : JsonConverter<");
+        builder.Append(name);
+        builder.AppendLine(@">");
+
+        builder.AppendLine(@"    {");
+
+        // Read(...)
+        builder.Append(@"        public override ");
+        builder.Append(name);
+        builder.AppendLine(@" Read(");
+
+        builder.AppendLine(@"            ref Utf8JsonReader reader,");
+        builder.AppendLine(@"            Type typeToConvert,");
+        builder.AppendLine(@"            JsonSerializerOptions options) =>");
+
+        builder.Append(@"                new ");
+        builder.Append(name);
+        builder.Append(@"(JsonSerializer.Deserialize<");
+        builder.Append(integralTypeName);
+        builder.AppendLine(@">(ref reader, options));");
+
+        builder.AppendLine();
+
+        // Write(...)
+        builder.AppendLine(@"        public override void Write(");
+        builder.AppendLine(@"            Utf8JsonWriter writer,");
+
+        builder.Append(@"            ");
+        builder.Append(name);
+        builder.AppendLine(@" strongID,");
+
+        builder.AppendLine(@"            JsonSerializerOptions options) =>");
+        builder.AppendLine(@"                JsonSerializer.Serialize(writer, strongID.ID, options);");
+
+        builder.AppendLine();
+
+        // ReadAsPropertyName(...)
+        builder.Append(@"        public override ");
+        builder.Append(name);
+        builder.AppendLine(@" ReadAsPropertyName(");
+
+        builder.AppendLine(@"            ref Utf8JsonReader reader,");
+        builder.AppendLine(@"            Type typeToConvert,");
+        builder.AppendLine(@"            JsonSerializerOptions options) =>");
+
+        builder.Append(@"                new ");
+        builder.Append(name);
+        builder.Append(@"(");
+        builder.Append(integralTypeName);
+        builder.AppendLine(@".Parse(reader.GetString()!));");
+
+        builder.AppendLine();
+
+        // WriteAsPropertyName(...)
+        builder.AppendLine(@"        public override void WriteAsPropertyName(");
+        builder.AppendLine(@"            Utf8JsonWriter writer,");
+
+        builder.Append(@"            ");
+        builder.Append(name);
+        builder.AppendLine(@" strongID,");
+
+        builder.AppendLine(@"            JsonSerializerOptions options) =>");
+        builder.AppendLine(@"                writer.WritePropertyName(strongID.ToString());");
+        builder.AppendLine(@"    }");
+    }
+
     private static string GenerateCode(StrongIDsToGenerate strongIDs)
     {
         var sb = new StringBuilder();
         sb.AppendLine(@"using Phaneritic.Interfaces;");
+        sb.AppendLine(@"using System.Text.Json;");
+        sb.AppendLine(@"using System.Text.Json.Serialization;");
         sb.AppendLine(@"using Microsoft.Extensions.DependencyInjection;");
         sb.Append(@"namespace ");
         sb.AppendLine(strongIDs.NameSpace);
@@ -79,6 +151,9 @@ public class StrongIDGenerator : IIncrementalGenerator
             sb.Append(@"    /// <remarks> BaseType = ");
             sb.Append(strongIDs.IntegralTypeName);
             sb.AppendLine(@"</remarks>");
+            sb.Append(@"    [JsonConverter(typeof(");
+            sb.Append(_id);
+            sb.AppendLine(@"Converter))]");
             sb.Append(@"    public readonly partial record struct ");
             sb.Append(_id);
             sb.Append(@"(");
@@ -93,6 +168,11 @@ public class StrongIDGenerator : IIncrementalGenerator
             sb.AppendLine(@" ID { readonly get => _ID; init => _ID = value; }");
             sb.AppendLine(@"        public override string ToString() => @$""{ID}"";");
             sb.AppendLine(@"    }");
+        }
+
+        foreach (var _id in strongIDs.IDs)
+        {
+            AddJsonConverter(_id, strongIDs.IntegralTypeName, sb);
         }
 
         foreach (var _id in strongIDs.IDs)
