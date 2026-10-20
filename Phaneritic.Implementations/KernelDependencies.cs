@@ -58,7 +58,6 @@ public static class KernelDependencies
 
         // Ef property configurators
         services.AddCommonKeysConfigurators();
-        services.AddKernelIDsConfigurators();
         services.AddKernelKeysConfigurators();
 
         // cache refreshers
