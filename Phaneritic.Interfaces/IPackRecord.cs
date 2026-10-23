@@ -28,7 +28,12 @@ public interface IPackRecord<in TModel, TDto>
     public FrozenDictionary<TKey, TDto> GetFrozenDictionary<TKey>(IEnumerable<TModel>? models, Func<TDto, TKey> keySelector)
         where TKey : struct, IEquatable<TKey>
         => GetDtos(models ?? [])
-        .ToDictionary(keySelector)
-        .ToFrozenDictionary();
+        .ToFrozenDictionary(keySelector);
+
+    public FrozenDictionary<TKey, FrozenSet<TDto>> GetFrozenDictionaryGroups<TKey>(IEnumerable<TModel>? models, Func<TDto, TKey> keySelector)
+        where TKey : struct, IEquatable<TKey>
+        => GetDtos(models ?? [])
+        .GroupBy(keySelector)
+        .ToFrozenDictionary(_dg => _dg.Key, _dg => _dg.ToFrozenSet());
 }
 
