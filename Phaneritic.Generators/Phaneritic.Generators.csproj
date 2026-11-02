@@ -8,6 +8,12 @@
     <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
     <IsRoslynComponent>true</IsRoslynComponent>
     <IncludeBuildOutput>false</IncludeBuildOutput>
+    <EnablePackageValidation>true</EnablePackageValidation>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+
+    <!-- If all members are not documented, you can disable the compiler warnings -->
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
   
   <ItemGroup>
