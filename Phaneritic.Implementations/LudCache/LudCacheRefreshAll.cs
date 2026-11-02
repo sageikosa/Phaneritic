@@ -34,61 +34,61 @@ public class LudCacheRefreshAll(
         var _gatherNotifiers = new List<ILudCacheFreshnessNotify>();
         foreach (var _cached in Refreshers)
         {
-                if (_fromDatabase.TryGetValue(_cached.RefresherKey, out var _db))
+            if (_fromDatabase.TryGetValue(_cached.RefresherKey, out var _db))
+            {
+                if (ludCacheFreshness.IsRefreshNeeded(_cached.RefresherKey, _db.LastUpdate))
                 {
-                    if (ludCacheFreshness.IsRefreshNeeded(_cached.RefresherKey, _db.LastUpdate))
-                    {
-                        if (ludCacheFreshness.SetFreshness(_cached.RefresherKey, _db.LastUpdate))
-                        {
-                            _actualWork = true;
-                            if (logger.IsEnabled(LogLevel.Information))
-                            {
-                                logger.LogInformation(@"Needs Refresh: {RefresherKey} @ {LastUpdate}", _cached.RefresherKey, _db.LastUpdate);
-                            }
-                            _cached.Refresh();
-
-                            // notify gather
-                            if (Notifiers.TryGetValue(_cached.RefresherKey, out var _notifiers)
-                                && (_notifiers.Count != 0))
-                            {
-                                _gatherNotifiers.AddRange(_notifiers.Where(_n => !_gatherNotifiers.Contains(_n)));
-                            }
-                        }
-                    }
-                }
-                else if (ludCacheFreshness.GetFreshness(_cached.RefresherKey) == null)
-                {
-                    // if _cached not currently tracked, must add
-                    if (ludCacheFreshness.SetFreshness(_cached.RefresherKey, DateTimeOffset.Now))
+                    if (ludCacheFreshness.SetFreshness(_cached.RefresherKey, _db.LastUpdate))
                     {
                         _actualWork = true;
-                        if (logger.IsEnabled(LogLevel.Information))
+                        if (Logger.IsEnabled(LogLevel.Information))
                         {
-                            logger.LogInformation(@"No Cache: {RefresherKey} @ {Now}", _cached.RefresherKey, DateTimeOffset.Now);
+                            Logger.LogInformation(@"Needs Refresh: {RefresherKey} @ {LastUpdate}", _cached.RefresherKey, _db.LastUpdate);
                         }
                         _cached.Refresh();
 
-                        // update shared freshness
-                        var _fresh = tableFreshnessContext.TableFreshnesses.Find(_cached.RefresherKey);
-                        if (_fresh == null)
-                        {
-                            tableFreshnessContext.TableFreshnesses.Add(
-                                new TableFreshness
-                                {
-                                    TableKey = _cached.RefresherKey,
-                                    ConcurrencyCheck = [],
-                                    LastUpdate = DateTimeOffset.Now
-                                });
-                        }
-
                         // notify gather
                         if (Notifiers.TryGetValue(_cached.RefresherKey, out var _notifiers)
-                            && _notifiers.Count != 0)
+                            && (_notifiers.Count != 0))
                         {
                             _gatherNotifiers.AddRange(_notifiers.Where(_n => !_gatherNotifiers.Contains(_n)));
                         }
                     }
                 }
+            }
+            else if (ludCacheFreshness.GetFreshness(_cached.RefresherKey) == null)
+            {
+                // if _cached not currently tracked, must add
+                if (ludCacheFreshness.SetFreshness(_cached.RefresherKey, DateTimeOffset.Now))
+                {
+                    _actualWork = true;
+                    if (Logger.IsEnabled(LogLevel.Information))
+                    {
+                        Logger.LogInformation(@"No Cache: {RefresherKey} @ {Now}", _cached.RefresherKey, DateTimeOffset.Now);
+                    }
+                    _cached.Refresh();
+
+                    // update shared freshness
+                    var _fresh = tableFreshnessContext.TableFreshnesses.Find(_cached.RefresherKey);
+                    if (_fresh == null)
+                    {
+                        tableFreshnessContext.TableFreshnesses.Add(
+                            new TableFreshness
+                            {
+                                TableKey = _cached.RefresherKey,
+                                ConcurrencyCheck = [],
+                                LastUpdate = DateTimeOffset.Now
+                            });
+                    }
+
+                    // notify gather
+                    if (Notifiers.TryGetValue(_cached.RefresherKey, out var _notifiers)
+                        && _notifiers.Count != 0)
+                    {
+                        _gatherNotifiers.AddRange(_notifiers.Where(_n => !_gatherNotifiers.Contains(_n)));
+                    }
+                }
+            }
         }
 
         // commit
@@ -104,9 +104,9 @@ public class LudCacheRefreshAll(
         }
         else
         {
-            if (logger.IsEnabled(LogLevel.Information))
+            if (Logger.IsEnabled(LogLevel.Information))
             {
-                logger.LogInformation(@"Still fresh @ {Now}", DateTimeOffset.Now);
+                Logger.LogInformation(@"Still fresh @ {Now}", DateTimeOffset.Now);
             }
         }
     }
