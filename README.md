@@ -10,6 +10,7 @@ By publicizing it, I am hoping its structures will be visible to the unaided dev
 Also, since almost all my code has been hidden under corporate ground for most of my career, this intrusion demonstrates that there have been forces at work which could not be seen.
 
 ## Updates
+    - **2026-11-21**: updated net 11.0
     - **2026-06-26**: added JsonConverter to StrongKeys for System.Text.Json
                       added FrozenSetConverter attribute to support FrozenSets in Dtos
                       added FrozenDictionaryConverter attribute to support FrozenDictionart in Dtos
